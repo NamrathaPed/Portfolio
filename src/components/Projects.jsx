@@ -1,23 +1,52 @@
-import { motion } from "framer-motion";
+import { memo } from "react"
+import { ProjectTile } from "./ProjectTile"
 
-export default function Projects() {
-  // Click handler
-  const handleClick = () => {
-    alert("Projects button clicked!");
-    // You can replace this with navigation or any other action
-  };
+export const Projects = memo(() => {
 
-  return (
-    <motion.button
-      onClick={handleClick}
-      className="absolute top-24 left-20 bg-teal-300 hover:bg-teal-600 text-black font-bold py-2 px-6 rounded shadow-lg cursor-pointer"
-      initial={{ x: -300, opacity: 0 }} // Start off-screen to the left
-      animate={{ x: 0, opacity: 1 }}   // Animate to original position
-      transition={{ type: "spring", stiffness: 100, duration: 1.5 }}
-      whileHover={{ scale: 1.1 }}       // Slightly enlarge on hover
-      whileTap={{ scale: 0.95 }}        // Press effect
-    >
-      Projects
-    </motion.button>
-  );
-}
+  const projectsData = [
+    {
+        title: "Resume Analyzer", 
+        stack: "React, TailwindCSS, Typescript",
+        description: "Experience real estate like never before with our impeccably designed landing page, featuring a stunning, seamless layout and captivating animations.",
+        imagePath: "realestate.png",
+        githubURL:"https://github.com/NamrathaPed/resumean-Part-1",
+        liveURL: ""
+    },
+    {
+        title: "AI Code Debugger", 
+        stack: "Flutter, Firebase, Sqflite",
+        description: "An AI chat app with OpenAI API and Firebase, featuring image recognition, customizable avatars, and efficient local database management, achieving 10,000+ downloads.",
+        imagePath: "AiMeet.png",
+        githubURL:"https://github.com/NamrathaPed/ai_code_debugger",
+        liveURL: ""
+    },
+    {
+        title: "Gen AI Pitch Pal", 
+        stack: "React, Redux, Json Server, Bootstrap",
+        description: "A Boat Lifestyle Website clone using React, Bootstrap, Redux, and JSON Server, featuring a React.js Admin Panel for efficient data management, intuitive routing, and enhanced product rendering and sorting.",
+        imagePath: "boatclone.png",
+        githubURL:"",
+        liveURL: "https://www.kaggle.com/code/adityagupta961/gen-ai-pitchpal-2"
+    }
+]
+
+
+    const projectList = projectsData.map((project)=>{
+        return (
+            <ProjectTile 
+                title={project.title}
+                stack={project.stack}
+                description={project.description}
+                imagePath={project.imagePath}
+                liveURL={project.liveURL}
+                githubURL={project.githubURL}
+            />
+        )
+    })
+
+    return (
+        <div className="space-y-10 py-10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800">
+            {projectList}
+        </div>
+    )
+})

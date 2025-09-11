@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
-  const handleProjectsClick = () => alert("Projects clicked!");
+  const handleProjectsClick = () => navigate("/projects");
   const handleSkillsClick = () => alert("Skills clicked!");
   const handleResumeClick = () => alert("Resume clicked!");
   const handleGithubClick = () => window.open("https://github.com/NamrathaPed", "_blank");
   const handleLinkedinClick = () => window.open("https://www.linkedin.com/in/namratha-peddamalla", "_blank");
+
+  const navigate = useNavigate();
 
   return (
     <section className="relative flex items-center justify-between h-screen bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800">
