@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
+import { span } from "framer-motion/client";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
   const handleProjectsClick = () => navigate("/projects");
+  const handleAboutClick = () => navigate("/About");
   const handleSkillsClick = () => alert("Skills clicked!");
   const handleResumeClick = () => alert("Resume clicked!");
   const handleGithubClick = () => window.open("https://github.com/NamrathaPed", "_blank");
@@ -57,6 +59,16 @@ export default function Hero() {
           >
             <span className="text-teal-500">➤</span> Projects
           </motion.p>
+          
+          <motion.button
+  onClick={handleAboutClick}
+  className="fixed top-4 left-20 bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold px-4 py-2 rounded-lg text-lg"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  About
+</motion.button>
+
 
           <motion.p
             onClick={handleSkillsClick}

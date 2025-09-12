@@ -23,7 +23,7 @@ export const Projects = memo(() => {
     {
         title: "Gen AI Pitch Pal", 
         stack: "React, Redux, Json Server, Bootstrap",
-        description: "A Boat Lifestyle Website clone using React, Bootstrap, Redux, and JSON Server, featuring a React.js Admin Panel for efficient data management, intuitive routing, and enhanced product rendering and sorting.",
+        description: "A Boat Lifestyle Website clone using React, Bootstrap, Redux, and JSON Server.",
         imagePath: "boatclone.png",
         githubURL:"",
         liveURL: "https://www.kaggle.com/code/adityagupta961/gen-ai-pitchpal-2"
@@ -36,8 +36,8 @@ export const Projects = memo(() => {
             <ProjectTile 
                 title={project.title}
                 stack={project.stack}
-                description={project.description}
                 imagePath={project.imagePath}
+                description={project.description}
                 liveURL={project.liveURL}
                 githubURL={project.githubURL}
             />
@@ -45,8 +45,10 @@ export const Projects = memo(() => {
     })
 
     return (
-        <div className="space-y-10 py-10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800">
+        <div className="min-h-screen bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800 ">
+            <div className="flex xl:flex-row flex-wrap justify-center gap-12 p-20">
             {projectList}
+            </div>
         </div>
     )
 })
