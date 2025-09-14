@@ -2,19 +2,22 @@ import { motion } from "framer-motion";
 import { span } from "framer-motion/client";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
+import "./starry.css";
 export default function Hero() {
+  const navigate = useNavigate();
+
+  
   const handleProjectsClick = () => navigate("/projects");
-  const handleAboutClick = () => navigate("/About");
-  const handleSkillsClick = () => alert("Skills clicked!");
+  const handleAboutClick = () => navigate("/about");
+  const handleSkillsClick = () => navigate("/skills");
+  const handleContactClick = () => alert("Contact button clicked!");
   const handleResumeClick = () => alert("Resume clicked!");
   const handleGithubClick = () => window.open("https://github.com/NamrathaPed", "_blank");
   const handleLinkedinClick = () => window.open("https://www.linkedin.com/in/namratha-peddamalla", "_blank");
 
-  const navigate = useNavigate();
 
   return (
-    <section className="relative flex items-center justify-between h-screen bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800">
+    <section className="flex items-center justify-between h-screen starry-bg bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800">
       {/* Profile Picture */}
       <motion.img
         src="/profile.jpg"
@@ -43,7 +46,7 @@ export default function Hero() {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.4 }}
       >
-        <h1 className="text-4xl font-['Press_Start_2P'] mb-2">I'm Namratha</h1>
+        <h1 className="text-4xl font-['Press_Start_2P'] mb-4">I'm Namratha</h1>
         <p className="text-xl">
           I'm a fullstack developer with a keen interest in AI, Machine Learning
           and Data Science.
@@ -61,13 +64,22 @@ export default function Hero() {
           </motion.p>
           
           <motion.button
-  onClick={handleAboutClick}
-  className="fixed top-4 left-20 bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold px-4 py-2 rounded-lg text-lg"
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
->
-  About
-</motion.button>
+          onClick={handleAboutClick}
+          className="fixed top-4 left-10 bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold px-4 py-2 rounded-lg text-lg"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+    >
+          About
+         </motion.button>
+
+          <motion.button
+            onClick ={handleContactClick}
+            className="fixed top-4 right-10 bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold py-2 px-4 rounded"
+            whileHover={{scale: 1.05}}
+            whileTap={{scale: 0.95}}
+          >
+            Contact Me
+          </motion.button>
 
 
           <motion.p

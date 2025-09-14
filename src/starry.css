@@ -1,0 +1,16 @@
+.starry-bg {
+  background-color: #0f172a; /* dark night sky */
+  background-image: radial-gradient(white 1px, transparent 1px); /* stars */
+  background-size: 20px 20px; /* spacing between stars */
+  background-repeat: repeat;
+animation: moveStars 60s linear infinite; /* slow animation */
+}
+
+@keyframes moveStars {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1000px 0; /* horizontal movement */
+  }
+}
