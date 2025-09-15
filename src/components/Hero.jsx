@@ -3,6 +3,7 @@ import { span } from "framer-motion/client";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./starry.css";
+import { NavigationButtons } from "./NavigationButtons";
 export default function Hero() {
   const navigate = useNavigate();
 
@@ -10,14 +11,15 @@ export default function Hero() {
   const handleProjectsClick = () => navigate("/projects");
   const handleAboutClick = () => navigate("/about");
   const handleSkillsClick = () => navigate("/skills");
-  const handleContactClick = () => alert("Contact button clicked!");
-  const handleResumeClick = () => alert("Resume clicked!");
+  const handleContactClick = () => navigate("/contact");
+  const handleResumeClick = () =>  window.open("/NamrathaResume.pdf", "_blank");
   const handleGithubClick = () => window.open("https://github.com/NamrathaPed", "_blank");
   const handleLinkedinClick = () => window.open("https://www.linkedin.com/in/namratha-peddamalla", "_blank");
 
 
   return (
     <section className="flex items-center justify-between h-screen starry-bg bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800">
+      <NavigationButtons type="home"/>
       {/* Profile Picture */}
       <motion.img
         src="/profile.jpg"
@@ -74,7 +76,7 @@ export default function Hero() {
 
           <motion.button
             onClick ={handleContactClick}
-            className="fixed top-4 right-10 bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold py-2 px-4 rounded"
+            className="fixed top-4 right-20 bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold py-2 px-4 rounded"
             whileHover={{scale: 1.05}}
             whileTap={{scale: 0.95}}
           >

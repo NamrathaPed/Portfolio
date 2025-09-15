@@ -7,7 +7,7 @@
   background-repeat: repeat;
   background-size: 200px 200px, 300px 300px, 520px 520px;
   background-position: 10px 20px, 50px 70px, 90px 40px;
-  animation: moveStars 120s linear infinite; /* slow animation */
+  animation: moveStars 100s linear infinite; /* slow animation */
   }
   
   @keyframes moveStars {

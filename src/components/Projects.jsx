@@ -1,3 +1,4 @@
+import { NavigationButtons } from "./NavigationButtons";
 import { memo } from "react"
 import { ProjectTile } from "./ProjectTile"
 
@@ -45,7 +46,8 @@ export const Projects = memo(() => {
     })
 
     return (
-        <div className="min-h-screen bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800 ">
+        <div className="min-h-screen starry-bg">
+            <NavigationButtons />
             <div className="flex xl:flex-row flex-wrap justify-center gap-12 p-20">
             {projectList}
             </div>
