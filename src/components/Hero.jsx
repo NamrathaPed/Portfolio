@@ -18,8 +18,26 @@ export default function Hero() {
 
 
   return (
-    <section className="flex items-center justify-between h-screen starry-bg bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800">
-      <NavigationButtons type="home"/>
+    <section className="relative flex flex-col md:flex-row items-center justify-between h-screen starry-bg bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800 px-4 md:px-12 overflow-hidden">
+      <div className="absolute top-16 left-4 md:top-4 md:left-4 z-50">
+  <NavigationButtons type="home" />
+</div>
+<div className="absolute top-4 left-4 z-50">
+        <button
+          onClick={handleAboutClick}
+          className="px-4 py-2 cursor-pointer bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold rounded transition"
+        >
+          About
+        </button>
+      </div>
+      <div className="absolute top-4 right-4 z-50">
+        <button
+          onClick={handleContactClick}
+          className="cursor-pointer bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold py-2 px-4 rounded"
+        >
+          Contact Me
+        </button>
+      </div>
       {/* Profile Picture */}
       <motion.img
         src="/profile.jpg"
@@ -48,14 +66,14 @@ export default function Hero() {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.4 }}
       >
-        <h1 className="text-4xl font-['Press_Start_2P'] mb-4">I'm Namratha</h1>
-        <p className="text-xl">
+        <h1 className="text-3xl md:text-5xl font-['Press_Start_2P'] mb-4">I'm Namratha</h1>
+        <p className="text-base md:text-xl mb-6 text-teal-300 font-mono">
           I'm a fullstack developer with a keen interest in AI, Machine Learning
           and Data Science.
         </p>
 
         {/* Links Row */}
-        <div className="flex gap-8 text-lg text-teal-300 mt-16 font-['Press_Start_2P']">
+        <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-8 text-lg text-teal-300 font-['Press_Start_2P']">
           <motion.p
             onClick={handleProjectsClick}
             className="cursor-pointer hover:underline decoration-teal-500 flex items-center gap-2"
@@ -64,26 +82,6 @@ export default function Hero() {
           >
             <span className="text-teal-500">➤</span> Projects
           </motion.p>
-          
-          <motion.button
-          onClick={handleAboutClick}
-          className="fixed top-4 left-10 bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold px-4 py-2 rounded-lg text-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-    >
-          About
-         </motion.button>
-
-          <motion.button
-            onClick ={handleContactClick}
-            className="fixed top-4 right-20 bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold py-2 px-4 rounded"
-            whileHover={{scale: 1.05}}
-            whileTap={{scale: 0.95}}
-          >
-            Contact Me
-          </motion.button>
-
-
           <motion.p
             onClick={handleSkillsClick}
             className="cursor-pointer hover:underline decoration-teal-500 flex items-center gap-2"
@@ -105,7 +103,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Bottom-right social icons */}
-      <div className="absolute bottom-15 right-10 flex flex-col gap-4 text-teal-300 text-2xl">
+      <div className="flex justify-center md:flex-col gap-4 space-x-6 mt-6 text-2xl text-teal-300">
         <motion.div
           onClick={handleGithubClick}
           className="cursor-pointer hover:text-teal-500"
