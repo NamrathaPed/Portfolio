@@ -61,14 +61,14 @@ export default function Hero() {
 
       {/* Name + Intro + Links */}
       <motion.div
-        className="absolute top-65 left-20 max-w-lg flex flex-col"
+        className="flex-1 text-center md:text-left mt-16 md:mt-0 "
         initial={{ x: -300, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.4 }}
       >
         <h1 className="text-3xl md:text-5xl font-['Press_Start_2P'] mb-4">I'm Namratha</h1>
         <p className="text-base md:text-xl mb-6 text-teal-300 font-mono">
-          I'm a fullstack developer with a keen interest in AI, Machine Learning
+          I'm a fullstack developer with a keen interest <br /> in AI, Machine Learning
           and Data Science.
         </p>
 
