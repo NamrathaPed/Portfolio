@@ -38,26 +38,7 @@ export default function Hero() {
           Contact Me
         </button>
       </div>
-      {/* Profile Picture */}
-      <motion.img
-        src="/profile.jpg"
-        alt="Namratha"
-        className="w-88 h-90 rounded-full border-4 border-purple-900 absolute bottom-50 right-60"
-        initial={{ y: 300, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      />
-
-      {/* Hi Bubble */}
-      <motion.div
-        className="absolute -top-39 left-205 bg-teal-300 text-black px-11 py-6 rounded-xl shadow-lg text-xl font-['Press_Start_2P'] relative"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.2, delay: 0.3 }}
-      >
-        Hi!
-        <span className="absolute -bottom-3 right-3 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-teal-300"></span>
-      </motion.div>
+    
 
       {/* Name + Intro + Links */}
       <motion.div
@@ -102,6 +83,27 @@ export default function Hero() {
         </div>
       </motion.div>
 
+      
+        {/* Right side: Profile picture + Hi bubble */}
+      <div className="flex-1 flex justify-center md:justify-center relative mt-12 md:mt-0 md:pr-12">
+        <motion.img
+          src="/profile.jpg"
+          alt="Namratha"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="w-48 md:w-88 h-48 md:h-88 rounded-full border-4 border-purple-900 shadow-lg"
+        />
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="absolute -top-6 md:-top-10 bg-teal-300 text-black px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg text-sm md:text-base font-['Press_Start_2P']"
+        >
+          Hi! {/* Bubble Tail */}
+  <span className="absolute left-6 md:left-10 -bottom-2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-teal-300"></span>
+        </motion.div>
+      </div>
       {/* Bottom-right social icons */}
       <div className="flex justify-center md:flex-col gap-4 space-x-6 mt-6 text-2xl text-teal-300">
         <motion.div
@@ -121,7 +123,7 @@ export default function Hero() {
         >
           <FaLinkedin />
         </motion.div>
-      </div>
+        </div>
     </section>
   );
 }
