@@ -7,25 +7,24 @@ export const Projects = memo(() => {
   const projectsData = [
     {
         title: "Resume Analyzer", 
-        stack: "React, TailwindCSS, Typescript",
-        description: "Experience real estate like never before with our impeccably designed landing page, featuring a stunning, seamless layout and captivating animations.",
+        stack: "Python, Natural Language Processing (NLP), Large Language Models (LLMs), scikit-learn",
+        description: "An AI-powered tool that reviews resumes, highlights key strengths, and suggests improvements. It helps job seekers create resumes that stand out to recruiters and match job descriptions more effectively.",
         imagePath: "realestate.png",
         githubURL:"https://github.com/NamrathaPed/resumean-Part-1",
         liveURL: ""
     },
     {
         title: "AI Code Debugger", 
-        stack: "Flutter, Firebase, Sqflite",
-        description: "An AI chat app with OpenAI API and Firebase, featuring image recognition, customizable avatars, and efficient local database management, achieving 10,000+ downloads.",
+        stack: "Python, Gemini API, Large Language Models (LLMs)",
+        description: "An AI-based system that finds errors in code, explains what went wrong, and suggests possible fixes in plain language. It makes debugging faster and easier, especially for beginners who want to understand their mistakes.",
         imagePath: "AiMeet.png",
         githubURL:"https://github.com/NamrathaPed/ai_code_debugger",
         liveURL: ""
     },
     {
         title: "Gen AI Pitch Pal", 
-        stack: "React, Redux, Json Server, Bootstrap",
-        description: "A Boat Lifestyle Website clone using React, Bootstrap, Redux, and JSON Server.",
-        imagePath: "boatclone.png",
+        stack: "Python, Gemini API, RAG, Langchain, Faiss, NLP",
+        description: "A generative AI tool that creates clear and professional pitch decks from simple inputs, helping founders present their ideas with ease.",
         githubURL:"",
         liveURL: "https://www.kaggle.com/code/adityagupta961/gen-ai-pitchpal-2"
     }

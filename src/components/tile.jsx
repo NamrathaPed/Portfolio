@@ -5,7 +5,7 @@ export const Tile = ({ title, subtitle, description, className }) => {
         {subtitle && (
           <p className="text-xl text-center text-violet-500 font-mono mb-6">{subtitle}</p>
         )}
-        <div className="w-full text-teal-300 font-mono">
+        <div className="w-full  text-violet-500 font-mono">
           {description}
         </div>
       </div>

@@ -10,13 +10,8 @@ export const About = () => {
       <div className="flex flex-1 justify-center items-center shadow: px-4 sm:px-8 md:px-16 lg:px-24 py-10">
         <Tile
           title="About Me"
-          subtitle="A little more about me"
-          description={`Hi, I’m Namratha, a recent Masters graduate in Information Systems from DePaul University with a GPA of 3.8/4.0. I’m passionate about data, AI, and problem-solving, and I enjoy building intelligent systems that make technology more practical and human-centered.
-
-I’ve worked on projects ranging from an AI-powered resume analyzer and AI code debugger to an e-commerce fraud detection system and an image search and recognition tool. Recently, I’ve been diving deeper into Generative AI, LLMs, and agentic AI systems while also strengthening my foundations in data analysis, C++, SQL, and software engineering.
-
-My skillset spans Python, Java, R, SQL, Tableau, Power BI, TensorFlow, PyTorch, and cloud computing, along with hands-on experience in Agile/Scrum environments. Beyond technical skills, I bring strong problem-solving, adaptability, and communication—qualities I continue to refine while applying to both data analyst and software engineer roles.`}
-          className="flex flex-col p-6 sm:p-8 md:p-12 lg:p-16 max-w-4xl w-full bg-slate-900/40 rounded-2xl shadow-lg backdrop-blur-md"
+          description={"Hi, I’m passionate about using AI, data, and software to solve problems that make life easier. From building AI tools that help people debug code or improve their resumes, to analyzing complex datasets and designing user-friendly solutions, I enjoy creating technology that’s both smart and accessible. I love exploring new ideas, learning cutting-edge technologies, and applying them to projects that have a meaningful impact. Every project I work on is an opportunity to make technology more practical, efficient, and helpful for people."}
+          className="flex flex-col p-6 sm:p-8 md:p-12 lg:p-16 max-w-4xl w-full bg-slate-900/40 rounded-2xl backdrop-blur-md shadow-[0_0_15px_#14b8a6]"
         />
       </div>
     </section>

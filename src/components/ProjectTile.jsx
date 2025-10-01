@@ -12,7 +12,7 @@ export const ProjectTile = ({
     }
         ) => {
     return (
-        <div className="space-y-6 xl:flex w-[350px] h-[600px] shadow-4xl bg-slate-800 hover:border-2 hover:border-teal-300 shadow-[0_0_15px_#14b8a6] hover:scale-105 transition-transform p-10 rounded-xl scroll-smooth">
+        <div className="space-y-6 xl:flex w-[350px] h-[600px] shadow-4xl bg-slate-800 hover:border-2 hover:border-teal-300 shadow-[0_0_15px_#14b8a6] hover:scale-105 transition-transform p-10 rounded-xl scroll-smooth overflow-y-scroll">
             <div className="flex flex-shrink-0 space-y-4 flex-col basis-64 text-center items-center">
                 <h1 className="text-4xl font-['Press_Start_2P'] text-teal-300">{title}</h1>
                 <p className=" text-violet-500">{stack}</p>
