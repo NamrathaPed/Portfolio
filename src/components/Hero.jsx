@@ -1,129 +1,526 @@
-import { motion } from "framer-motion";
-import { span } from "framer-motion/client";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import "./hero.css";
 import "./starry.css";
-import { NavigationButtons } from "./NavigationButtons";
-export default function Hero() {
-  const navigate = useNavigate();
 
-  
-  const handleProjectsClick = () => navigate("/projects");
-  const handleAboutClick = () => navigate("/about");
-  const handleSkillsClick = () => navigate("/skills");
-  const handleContactClick = () => navigate("/contact");
-  const handleResumeClick = () =>  window.open("/NamrathaResume.pdf", "_blank");
-  const handleGithubClick = () => window.open("https://github.com/NamrathaPed", "_blank");
-  const handleLinkedinClick = () => window.open("https://www.linkedin.com/in/namratha-peddamalla", "_blank");
+// ─────────────────────────────────────────────────────────
+// CRT boot overlay — mounts on load, fades out after ~2.4s
+// ─────────────────────────────────────────────────────────
+const CRTBoot = () => (
+  <div className="crt-overlay">
+    <div className="crt-noise" />
+    <div className="crt-scanline" />
+    <div className="crt-vignette" />
+  </div>
+);
 
-
-  return (
-    <section className="relative flex flex-col md:flex-row items-center justify-between h-screen starry-bg bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800 px-4 md:px-12 overflow-hidden">
-      <div className="absolute top-16 left-4 md:top-4 md:left-4 z-50">
-  <NavigationButtons type="home" />
-</div>
-<div className="absolute top-4 left-4 z-50">
-        <button
-          onClick={handleAboutClick}
-          className="px-4 py-2 cursor-pointer bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold rounded transition"
-        >
-          About
-        </button>
-      </div>
-      <div className="absolute top-4 right-4 z-50">
-        <button
-          onClick={handleContactClick}
-          className="cursor-pointer bg-teal-300 hover:bg-teal-500 text-black font-mono font-bold py-2 px-4 rounded"
-        >
-          Contact Me
-        </button>
-      </div>
-    
-
-      {/* Name + Intro + Links */}
-      <motion.div
-        className="flex-1 text-center md:text-left mt-16 md:mt-0 "
-        initial={{ x: -300, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.4, delay: 0.4 }}
-      >
-        <h1 className="text-3xl md:text-5xl font-['Press_Start_2P'] mb-4">I'm Namratha</h1>
-        <p className="text-base md:text-xl mb-6 text-teal-300 font-mono">
-          I'm a fullstack developer with a keen interest <br /> in AI, Machine Learning
-          and Data Science.
-        </p>
-
-        {/* Links Row */}
-        <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-8 text-lg text-teal-300 font-['Press_Start_2P']">
-          <motion.p
-            onClick={handleProjectsClick}
-            className="cursor-pointer hover:underline decoration-teal-500 flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="text-teal-500">➤</span> Projects
-          </motion.p>
-          <motion.p
-            onClick={handleSkillsClick}
-            className="cursor-pointer hover:underline decoration-teal-500 flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="text-teal-500">➤</span> Skills
-          </motion.p>
-
-          <motion.p
-            onClick={handleResumeClick}
-            className="cursor-pointer hover:underline decoration-teal-500 flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="text-teal-500">➤</span> Resume
-          </motion.p>
-        </div>
-      </motion.div>
-
-      
-        {/* Right side: Profile picture + Hi bubble */}
-      <div className="flex-1 flex justify-center md:justify-center relative mt-12 md:mt-0 md:pr-12">
-        <motion.img
+// ─────────────────────────────────────────────────────────
+// Hologram avatar
+// ─────────────────────────────────────────────────────────
+const AvatarHologram = () => (
+  <div style={{ position: "relative", display: "inline-block" }}>
+    {/* Float bob */}
+    <div style={{ animation: "bobFloat 4s ease-in-out infinite" }}>
+      {/* Chromatic aberration glitch */}
+      <div style={{ position: "relative", animation: "holoGlitch 9s ease-in-out infinite" }}>
+        <img
           src="/profile.jpg"
           alt="Namratha"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="w-48 md:w-88 h-48 md:h-88 rounded-full border-4 border-purple-900 shadow-lg"
+          style={{
+            width: 340,
+            height: 340,
+            borderRadius: "50%",
+            objectFit: "cover",
+            display: "block",
+            animation: "holoRing 3s ease-in-out infinite",
+          }}
         />
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="absolute -top-6 md:-top-10 bg-teal-300 text-black px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg text-sm md:text-base font-['Press_Start_2P']"
-        >
-          Hi! {/* Bubble Tail */}
-  <span className="absolute left-6 md:left-10 -bottom-2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-teal-300"></span>
-        </motion.div>
+        {/* Teal CRT scanlines */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: "50%",
+            background:
+              "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,229,176,0.07) 3px, rgba(0,229,176,0.07) 4px)",
+            pointerEvents: "none",
+          }}
+        />
+        {/* Edge teal tint */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, transparent 55%, rgba(0,229,176,0.18) 100%)",
+            pointerEvents: "none",
+          }}
+        />
       </div>
-      {/* Bottom-right social icons */}
-      <div className="flex justify-center md:flex-col gap-4 space-x-6 mt-6 text-2xl text-teal-300">
-        <motion.div
-          onClick={handleGithubClick}
-          className="cursor-pointer hover:text-teal-500"
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaGithub />
-        </motion.div>
+    </div>
 
-        <motion.div
-          onClick={handleLinkedinClick}
-          className="cursor-pointer hover:text-teal-500"
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaLinkedin />
-        </motion.div>
+    {/* Hi! bubble */}
+    <div
+      style={{
+        position: "absolute",
+        top: -48,
+        left: "50%",
+        transform: "translateX(-50%)",
+        backgroundColor: "#00e5b0",
+        color: "#0a0f1e",
+        padding: "10px 22px",
+        borderRadius: "9999px",
+        fontFamily: "'Press Start 2P', monospace",
+        fontSize: 13,
+        whiteSpace: "nowrap",
+        boxShadow: "0 0 14px rgba(0,229,176,0.55)",
+        zIndex: 2,
+        pointerEvents: "none",
+      }}
+    >
+      Hi!
+      <span
+        style={{
+          position: "absolute",
+          bottom: -8,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 0,
+          height: 0,
+          borderLeft: "8px solid transparent",
+          borderRight: "8px solid transparent",
+          borderTop: "8px solid #00e5b0",
+        }}
+      />
+    </div>
+
+    {/* Projector beam (emanates upward from below) */}
+    <div
+      style={{
+        position: "absolute",
+        bottom: -82,
+        left: "50%",
+        width: 220,
+        height: 100,
+        background:
+          "linear-gradient(to bottom, rgba(0,229,176,0.38), rgba(0,229,176,0.02))",
+        clipPath: "polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%)",
+        animation: "beamPulse 2.5s ease-in-out infinite",
+        transform: "translateX(-50%)",
+        filter: "blur(5px)",
+        pointerEvents: "none",
+      }}
+    />
+    {/* Glow dot at projector base */}
+    <div
+      style={{
+        position: "absolute",
+        bottom: -84,
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: 56,
+        height: 7,
+        borderRadius: "50%",
+        background: "rgba(0,229,176,0.7)",
+        filter: "blur(7px)",
+        pointerEvents: "none",
+      }}
+    />
+  </div>
+);
+
+// ─────────────────────────────────────────────────────────
+// Types a string once, character by character, after a delay
+// ─────────────────────────────────────────────────────────
+function useTypewriterOnce(text, startDelay = 900) {
+  const [typed, setTyped] = useState("");
+
+  useEffect(() => {
+    let ticker;
+    const starter = setTimeout(() => {
+      let i = 0;
+      const tick = () => {
+        i++;
+        setTyped(text.slice(0, i));
+        if (i < text.length) ticker = setTimeout(tick, 75);
+      };
+      tick();
+    }, startDelay);
+    return () => { clearTimeout(starter); clearTimeout(ticker); };
+  }, []);
+
+  const done = typed.length === text.length;
+  return { typed, done };
+}
+
+// ─────────────────────────────────────────────────────────
+// Cycles through role titles (starts only when enabled)
+// ─────────────────────────────────────────────────────────
+const TITLES = [
+  "Fullstack Developer",
+  "AI Engineer",
+  "ML Engineer",
+  "Data Science Explorer",
+];
+
+function useTypewriter(enabled) {
+  const [idx, setIdx] = useState(0);
+  const [typed, setTyped] = useState("");
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const full = TITLES[idx];
+    let t;
+    if (!deleting && typed === full) {
+      t = setTimeout(() => setDeleting(true), 1800);
+    } else if (deleting && typed === "") {
+      setDeleting(false);
+      setIdx((i) => (i + 1) % TITLES.length);
+    } else {
+      t = setTimeout(
+        () => setTyped(deleting ? typed.slice(0, -1) : full.slice(0, typed.length + 1)),
+        deleting ? 44 : 88
+      );
+    }
+    return () => clearTimeout(t);
+  }, [typed, deleting, idx, enabled]);
+
+  return typed;
+}
+
+// ─────────────────────────────────────────────────────────
+// Main Hero
+// ─────────────────────────────────────────────────────────
+export default function Hero() {
+  const navigate = useNavigate();
+  const { typed: heading, done: headingDone } = useTypewriterOnce("I'm Namratha", 900);
+  const typed = useTypewriter(headingDone);
+
+  // ── CRT boot ──────────────────────────────────────────
+  const [crtDone, setCrtDone] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setCrtDone(true), 1000);
+    return () => clearTimeout(t);
+  }, []);
+
+  // ── Custom cursor (DOM-direct for zero-lag) ────────────
+  const cursorRef = useRef(null);
+
+  // ── Canvas stars with mouse repulsion ─────────────────
+  const canvasRef = useRef(null);
+  const starsRef = useRef([]);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const rafRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    const setup = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      starsRef.current = Array.from({ length: 140 }, () => {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        return {
+          x, y, baseX: x, baseY: y,
+          vx: 0, vy: 0,
+          size: Math.random() < 0.15 ? 2 : 1,
+          opacity: 0.3 + Math.random() * 0.65,
+          twinkle: 0.7 + Math.random() * 2.8,
+          phase: Math.random() * Math.PI * 2,
+        };
+      });
+    };
+
+    setup();
+    window.addEventListener("resize", setup);
+
+    const onMouseMove = (e) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+      if (cursorRef.current) {
+        cursorRef.current.style.left = e.clientX + "px";
+        cursorRef.current.style.top = e.clientY + "px";
+      }
+    };
+    window.addEventListener("mousemove", onMouseMove);
+
+    const draw = (t) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      starsRef.current.forEach((s) => {
+        const dx = s.x - mouseRef.current.x;
+        const dy = s.y - mouseRef.current.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const R = 120;
+        if (dist < R && dist > 0) {
+          const f = ((R - dist) / R) * 0.85;
+          s.vx += (dx / dist) * f;
+          s.vy += (dy / dist) * f;
+        }
+        // Spring back to origin
+        s.vx += (s.baseX - s.x) * 0.007;
+        s.vy += (s.baseY - s.y) * 0.007;
+        // Damping
+        s.vx *= 0.88;
+        s.vy *= 0.88;
+        s.x += s.vx;
+        s.y += s.vy;
+
+        const op =
+          s.opacity * (0.5 + 0.5 * Math.sin(t * 0.001 * s.twinkle + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${Math.max(0, Math.min(1, op))})`;
+        ctx.fill();
+      });
+      rafRef.current = requestAnimationFrame(draw);
+    };
+
+    rafRef.current = requestAnimationFrame(draw);
+
+    return () => {
+      window.removeEventListener("resize", setup);
+      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  // ── Click particle burst ───────────────────────────────
+  const [particles, setParticles] = useState([]);
+
+  const handleClick = useCallback((e) => {
+    const burst = Array.from({ length: 14 }, (_, i) => {
+      const angle = (i / 14) * Math.PI * 2;
+      const speed = 45 + Math.random() * 65;
+      return {
+        id: `${Date.now()}-${i}`,
+        x: e.clientX,
+        y: e.clientY,
+        tx: Math.cos(angle) * speed,
+        ty: Math.sin(angle) * speed,
+        color: i % 2 === 0 ? "#00e5b0" : "#a855f7",
+        size: 3 + Math.random() * 3,
+      };
+    });
+    setParticles((p) => [...p, ...burst]);
+    setTimeout(
+      () => setParticles((p) => p.filter((x) => !burst.find((b) => b.id === x.id))),
+      700
+    );
+  }, []);
+
+  // ── Navigation ─────────────────────────────────────────
+  const go = (path) => (e) => { e.stopPropagation(); navigate(path); };
+  const open = (url) => (e) => { e.stopPropagation(); window.open(url, "_blank"); };
+
+  return (
+    <section
+      className="hero-page starry-bg"
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        backgroundColor: "#0a0f1e",
+        overflow: "hidden",
+      }}
+      onClick={handleClick}
+    >
+      {/* Canvas star field */}
+      <canvas
+        ref={canvasRef}
+        style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}
+      />
+
+      {/* CRT boot */}
+      {!crtDone && <CRTBoot />}
+
+      {/* Custom cursor ring */}
+      <div ref={cursorRef} className="cursor-ring" />
+
+      {/* Click particles */}
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          style={{
+            position: "fixed",
+            left: p.x,
+            top: p.y,
+            width: p.size,
+            height: p.size,
+            borderRadius: "50%",
+            backgroundColor: p.color,
+            pointerEvents: "none",
+            zIndex: 9998,
+            "--tx": `${p.tx}px`,
+            "--ty": `${p.ty}px`,
+            animation: "particleFly 0.7s ease-out forwards",
+            boxShadow: `0 0 6px ${p.color}`,
+          }}
+        />
+      ))}
+
+      {/* Top nav buttons */}
+      <div
+        style={{
+          position: "absolute",
+          top: 16,
+          left: 16,
+          right: 16,
+          zIndex: 50,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <button onClick={go("/about")} style={topBtnStyle}>About</button>
+        <button onClick={go("/contact")} style={topBtnStyle}>Contact Me</button>
+      </div>
+
+      {/* Main layout */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          minHeight: "100vh",
+          padding: "0 clamp(1.5rem, 6vw, 6rem)",
+          gap: "2rem",
+        }}
+      >
+        {/* ── Left: text ─────────────────────────────────── */}
+        <div style={{ flex: 1, maxWidth: 520, marginTop: 60 }}>
+          <h1
+            className="hero-title"
+            style={{
+              fontFamily: "'Press Start 2P', monospace",
+              fontSize: "clamp(20px, 4.5vw, 42px)",
+              color: "#00e5b0",
+              marginBottom: "1.2rem",
+              letterSpacing: "1px",
+              animation: "slideInLeft 0.5s ease-out 0.8s both",
+            }}
+          >
+            {heading}
+            <span className="typewriter-caret" style={{ visibility: headingDone ? "hidden" : "visible" }}>_</span>
+          </h1>
+
+          {/* Subtitle typewriter */}
+          <div
+            style={{
+              fontFamily: "'Press Start 2P', monospace",
+              fontSize: "clamp(10px, 1.4vw, 16px)",
+              color: "#a855f7",
+              marginBottom: "1.8rem",
+              minHeight: "2.2em",
+              letterSpacing: "1px",
+              animation: "fadeIn 0.4s ease-out 0.8s both",
+            }}
+          >
+            {typed}
+            <span className="typewriter-caret">_</span>
+          </div>
+
+          <p
+            style={{
+              fontFamily: "Inter, sans-serif",
+              color: "#9ca3af",
+              fontSize: "clamp(15px, 1.4vw, 20px)",
+              lineHeight: 1.75,
+              marginBottom: "2.5rem",
+              animation: "slideInLeft 0.5s ease-out 1.0s both",
+            }}
+          >
+            I'm a fullstack developer with a keen interest in AI, Machine
+            Learning and Data Science.
+          </p>
+
+          {/* Nav links */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "1.5rem",
+              fontFamily: "'Press Start 2P', monospace",
+              fontSize: "clamp(12px, 1.3vw, 17px)",
+              animation: "slideInLeft 0.5s ease-out 1.1s both",
+            }}
+          >
+            {[
+              { label: "Projects", fn: go("/projects") },
+              { label: "Skills",   fn: go("/skills") },
+              { label: "Resume",   fn: open("/NamrathaResume.pdf") },
+            ].map(({ label, fn }) => (
+              <span
+                key={label}
+                onClick={fn}
+                className="hero-nav-link"
+                style={{
+                  color: "#00e5b0",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  userSelect: "none",
+                }}
+              >
+                <span style={{ color: "#00e5b060" }}>➤</span> {label}
+              </span>
+            ))}
+          </div>
         </div>
+
+        {/* ── Right: avatar ───────────────────────────────── */}
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingBottom: 80,
+          }}
+        >
+          <AvatarHologram />
+        </div>
+      </div>
+
+      {/* Social icons */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 28,
+          right: 28,
+          zIndex: 2,
+          display: "flex",
+          flexDirection: "column",
+          gap: 16,
+          fontSize: 22,
+          color: "#00e5b0",
+        }}
+      >
+        <FaGithub
+          className="social-icon"
+          onClick={open("https://github.com/NamrathaPed")}
+        />
+        <FaLinkedin
+          className="social-icon"
+          onClick={open("https://www.linkedin.com/in/namratha-peddamalla")}
+        />
+      </div>
     </section>
   );
 }
+
+const topBtnStyle = {
+  fontFamily: "'Press Start 2P', monospace",
+  fontSize: 10,
+  color: "#0a0f1e",
+  backgroundColor: "#00e5b0",
+  border: "none",
+  padding: "8px 16px",
+  borderRadius: 4,
+  letterSpacing: "0.5px",
+};

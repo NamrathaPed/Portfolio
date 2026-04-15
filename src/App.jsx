@@ -4,7 +4,7 @@ import Hero from './components/Hero'
 //import About from './components/About'
 export const App = () => {
   return (
-    <div className="min-h-screen text-teal-300 font-mono overflow-x-hidden">
+    <div className="min-h-screen text-[#00e5b0] font-mono overflow-x-hidden">
       {/* Hero Section */}
       <Hero /> 
     </div>

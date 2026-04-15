@@ -1,5 +1,6 @@
 import { Tile } from "./tile";
 import { NavigationButtons } from "./NavigationButtons";
+import "./projects.css";
 import { FaPython, FaJava, FaJs, FaReact, FaNodeJs, FaRProject, FaGitAlt } from "react-icons/fa";
 import { 
   SiC, SiCplusplus, SiTypescript, SiHtml5, SiCss3, 
@@ -87,7 +88,7 @@ export const Skills = () => {
   return (
     <section className="flex flex-col items-center justify-center p-10 starry-bg">
       <NavigationButtons />
-      <h1 className="text-4xl text-teal-300 font-['Press_Start_2P'] mb-10 text-center">My Skills</h1>
+      <h1 className="stage-header-text" style={{ color: "#00e5b0", fontFamily: "'Press Start 2P', monospace", fontSize: "clamp(18px, 4vw, 34px)", letterSpacing: "2px", marginBottom: "40px", textAlign: "center" }}>My Skills</h1>
 
       <div className="flex flex-col gap-8 w-full max-w-4xl">
         {skillCategories.map((category, index) => (
@@ -103,7 +104,7 @@ export const Skills = () => {
                <div className="flex flex-wrap gap-4 justify-center mt-4 ">
                  {category.skills.map((skill, idx) => (
                    <div key={idx} className="flex flex-col items-center w-24">
-                     <div className="text-3xl text-teal-300 mb-1 hover:scale-125 transition-transform">{skill.icon}</div>
+                     <div className="text-3xl text-[#00e5b0] mb-1 hover:scale-125 transition-transform">{skill.icon}</div>
                      <p className="text-violet-500 text-center text-sm">{skill.name}</p>
                    </div>
                  ))}
