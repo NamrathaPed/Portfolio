@@ -27,7 +27,7 @@ const StarRating = ({ count }) => (
   </div>
 );
 
-export const ProjectTile = ({ stage, title, stack, description, imagePath, githubURL, liveURL, stars, isBoss }) => {
+export const ProjectTile = ({ stage, title, stack, description, imagePath, githubURL, liveURL, demoURL, stars, isBoss }) => {
   const [hovered, setHovered] = useState(false);
 
   const accent     = isBoss ? "#a855f7" : "#00e5b0";
@@ -257,19 +257,26 @@ export const ProjectTile = ({ stage, title, stack, description, imagePath, githu
             NOTEBOOK
           </a>
         )}
-        {liveURL && !liveURL.includes("kaggle") && (
-          <a
-            href={liveURL}
-            target="_blank"
-            rel="noreferrer noopener"
-            style={btnBase}
-            className="project-card-btn"
-            onMouseEnter={handleBtnEnter}
-            onMouseLeave={handleBtnLeave}
-          >
-            <TbWorldWww size={12} />
-            DEMO
-          </a>
+        {demoURL !== undefined && (
+          demoURL ? (
+            <a
+              href={demoURL}
+              target="_blank"
+              rel="noreferrer noopener"
+              style={btnBase}
+              className="project-card-btn"
+              onMouseEnter={handleBtnEnter}
+              onMouseLeave={handleBtnLeave}
+            >
+              <TbWorldWww size={12} />
+              DEMO
+            </a>
+          ) : (
+            <span style={{ ...btnBase, color: "#4b5563", borderColor: "#4b5563", cursor: "not-allowed" }}>
+              <TbWorldWww size={12} />
+              DEMO
+            </span>
+          )
         )}
       </div>
     </div>

@@ -3,6 +3,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "./hero.css";
 import "./starry.css";
+import "./projects.css";
 
 // ─────────────────────────────────────────────────────────
 // CRT boot overlay — mounts on load, fades out after ~2.4s
@@ -132,30 +133,6 @@ const AvatarHologram = () => (
 );
 
 // ─────────────────────────────────────────────────────────
-// Types a string once, character by character, after a delay
-// ─────────────────────────────────────────────────────────
-function useTypewriterOnce(text, startDelay = 900) {
-  const [typed, setTyped] = useState("");
-
-  useEffect(() => {
-    let ticker;
-    const starter = setTimeout(() => {
-      let i = 0;
-      const tick = () => {
-        i++;
-        setTyped(text.slice(0, i));
-        if (i < text.length) ticker = setTimeout(tick, 75);
-      };
-      tick();
-    }, startDelay);
-    return () => { clearTimeout(starter); clearTimeout(ticker); };
-  }, []);
-
-  const done = typed.length === text.length;
-  return { typed, done };
-}
-
-// ─────────────────────────────────────────────────────────
 // Cycles through role titles (starts only when enabled)
 // ─────────────────────────────────────────────────────────
 const TITLES = [
@@ -196,8 +173,7 @@ function useTypewriter(enabled) {
 // ─────────────────────────────────────────────────────────
 export default function Hero() {
   const navigate = useNavigate();
-  const { typed: heading, done: headingDone } = useTypewriterOnce("I'm Namratha", 900);
-  const typed = useTypewriter(headingDone);
+  const typed = useTypewriter(true);
 
   // ── CRT boot ──────────────────────────────────────────
   const [crtDone, setCrtDone] = useState(false);
@@ -205,9 +181,6 @@ export default function Hero() {
     const t = setTimeout(() => setCrtDone(true), 1000);
     return () => clearTimeout(t);
   }, []);
-
-  // ── Custom cursor (DOM-direct for zero-lag) ────────────
-  const cursorRef = useRef(null);
 
   // ── Canvas stars with mouse repulsion ─────────────────
   const canvasRef = useRef(null);
@@ -241,10 +214,6 @@ export default function Hero() {
 
     const onMouseMove = (e) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
-      if (cursorRef.current) {
-        cursorRef.current.style.left = e.clientX + "px";
-        cursorRef.current.style.top = e.clientY + "px";
-      }
     };
     window.addEventListener("mousemove", onMouseMove);
 
@@ -336,9 +305,6 @@ export default function Hero() {
       {/* CRT boot */}
       {!crtDone && <CRTBoot />}
 
-      {/* Custom cursor ring */}
-      <div ref={cursorRef} className="cursor-ring" />
-
       {/* Click particles */}
       {particles.map((p) => (
         <div
@@ -394,20 +360,20 @@ export default function Hero() {
       >
         {/* ── Left: text ─────────────────────────────────── */}
         <div style={{ flex: 1, maxWidth: 520, marginTop: 60 }}>
-          <h1
-            className="hero-title"
-            style={{
-              fontFamily: "'Press Start 2P', monospace",
-              fontSize: "clamp(20px, 4.5vw, 42px)",
-              color: "#00e5b0",
-              marginBottom: "1.2rem",
-              letterSpacing: "1px",
-              animation: "slideInLeft 0.5s ease-out 0.8s both",
-            }}
-          >
-            {heading}
-            <span className="typewriter-caret" style={{ visibility: headingDone ? "hidden" : "visible" }}>_</span>
-          </h1>
+          <div style={{ animation: "slideInLeft 0.5s ease-out 0.8s both" }}>
+            <h1
+              className="stage-header-text"
+              style={{
+                fontFamily: "'Press Start 2P', monospace",
+                fontSize: "clamp(20px, 4.5vw, 40px)",
+                color: "#00e5b0",
+                marginBottom: "1.2rem",
+                letterSpacing: "2px",
+              }}
+            >
+              I'm Namratha
+            </h1>
+          </div>
 
           {/* Subtitle typewriter */}
           <div

@@ -88,7 +88,14 @@ export const Skills = () => {
   return (
     <section className="flex flex-col items-center justify-center p-10 starry-bg">
       <NavigationButtons />
-      <h1 className="stage-header-text" style={{ color: "#00e5b0", fontFamily: "'Press Start 2P', monospace", fontSize: "clamp(18px, 4vw, 34px)", letterSpacing: "2px", marginBottom: "40px", textAlign: "center" }}>My Skills</h1>
+      <h1 className="stage-header-text" style={{ color: "#00e5b0", fontFamily: "'Press Start 2P', monospace", fontSize: "clamp(18px, 4vw, 34px)", letterSpacing: "2px", marginBottom: "16px", textAlign: "center" }}>My Skills</h1>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "40px" }}>
+        <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, #00e5b030)" }} />
+        <span style={{ color: "#00e5b040", fontFamily: "'Press Start 2P', monospace", fontSize: "8px" }}>◆</span>
+        <div style={{ height: "1px", width: "120px", background: "linear-gradient(to right, #00e5b030, #a855f730, #00e5b030)" }} />
+        <span style={{ color: "#00e5b040", fontFamily: "'Press Start 2P', monospace", fontSize: "8px" }}>◆</span>
+        <div style={{ height: "1px", width: "60px", background: "linear-gradient(to left, transparent, #00e5b030)" }} />
+      </div>
 
       <div className="flex flex-col gap-8 w-full max-w-4xl">
         {skillCategories.map((category, index) => (
@@ -98,14 +105,14 @@ export const Skills = () => {
            description={
              <div className="w-full">
                {/* Fake title aligned left */}
-               <h2 className="text-2xl font-['Press_Start_2P'] text-violet-500 mb-10 text-left">{category.title}</h2>
+               <h2 className="text-2xl font-['Press_Start_2P'] text-[#a855f7] mb-10 text-left">{category.title}</h2>
 
                {/* Skills centered */}
                <div className="flex flex-wrap gap-4 justify-center mt-4 ">
                  {category.skills.map((skill, idx) => (
                    <div key={idx} className="flex flex-col items-center w-24">
                      <div className="text-3xl text-[#00e5b0] mb-1 hover:scale-125 transition-transform">{skill.icon}</div>
-                     <p className="text-violet-500 text-center text-sm">{skill.name}</p>
+                     <p className="text-[#a855f7] text-center text-sm">{skill.name}</p>
                    </div>
                  ))}
                </div>
