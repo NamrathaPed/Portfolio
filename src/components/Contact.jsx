@@ -3,9 +3,9 @@ import "./starry.css";
 import "./projects.css";
 export const Contact=() => {
     return (
-    <section className="flex min-h-screen justify-center items-center starry-bg">
+    <section className="flex min-h-screen justify-center items-center starry-bg px-4 pt-20 pb-10">
         <NavigationButtons />
-        <div className="flex flex-col max-w-xl w-xl mx-auto p-8 bg-[#111827] rounded-xl shadow-[0_0_15px_#00e5b0] border-4 border-[#00e5b0]">
+        <div className="flex flex-col max-w-xl w-full mx-auto p-6 sm:p-8 bg-[#111827] rounded-xl shadow-[0_0_15px_#00e5b0] border-4 border-[#00e5b0]">
             <h1 className="stage-header-text" style={{ color: "#00e5b0", fontFamily: "'Press Start 2P', monospace", fontSize: "clamp(18px, 4vw, 34px)", letterSpacing: "2px", marginBottom: "16px", textAlign: "center" }}>Contact Me</h1>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "24px" }}>
               <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, #00e5b030)" }} />

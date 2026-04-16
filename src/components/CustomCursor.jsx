@@ -1,18 +1,43 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 export const CustomCursor = () => {
-  const ref = useRef(null);
+  const ringRef = useRef(null);
+  const [ripples, setRipples] = useState([]);
 
+  // DOM-direct cursor move — zero lag
   useEffect(() => {
     const move = (e) => {
-      if (ref.current) {
-        ref.current.style.left = e.clientX + "px";
-        ref.current.style.top = e.clientY + "px";
+      if (ringRef.current) {
+        ringRef.current.style.left = e.clientX + "px";
+        ringRef.current.style.top = e.clientY + "px";
       }
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  return <div ref={ref} className="cursor-ring" />;
+  // Global click ripple
+  const handleClick = useCallback((e) => {
+    const id = Date.now() + Math.random();
+    setRipples((r) => [...r, { id, x: e.clientX, y: e.clientY }]);
+    setTimeout(() => setRipples((r) => r.filter((p) => p.id !== id)), 700);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, [handleClick]);
+
+  return (
+    <>
+      <div ref={ringRef} className="cursor-ring" />
+      {ripples.map((r) => (
+        <div
+          key={r.id}
+          className="cursor-ripple"
+          style={{ left: r.x, top: r.y }}
+        />
+      ))}
+    </>
+  );
 };

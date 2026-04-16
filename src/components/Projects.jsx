@@ -7,22 +7,22 @@ import "./starry.css";
 const projectsData = [
   {
     stage: "01",
-    title: "Resume Analyzer",
-    stack: ["Python", "NLP", "LLMs", "scikit-learn"],
+    title: "Gen AI Pitch Pal",
+    stack: ["Python", "Gemini API", "RAG", "Langchain", "Faiss", "NLP"],
     description:
-      "An AI-powered tool that reviews resumes, highlights key strengths, and suggests improvements to help job seekers stand out to recruiters.",
-    imagePath: "realestate.png",
-    githubURL: "https://github.com/NamrathaPed/resumean-Part-1",
-    liveURL: "",
-    stars: 4,
+      "A generative AI tool that crafts clear, professional pitch decks from simple inputs — helping founders present ideas with confidence.",
+    imagePath: "",
+    githubURL: "",
+    liveURL: "https://www.kaggle.com/code/adityagupta961/gen-ai-pitchpal-2",
+    stars: 5,
     isBoss: false,
   },
   {
     stage: "02",
-    title: "AI Code Debugger",
-    stack: ["Python", "Gemini API", "LLMs"],
+    title: "Dataweaver- AI Data Analyst ",
+    stack: ["Python", "nvidia API", "React"],
     description:
-      "An AI-based system that detects errors in code, explains what went wrong, and suggests plain-language fixes — great for beginners.",
+      "an AI-powered system that takes in raw CSV or Excel data and automatically performs data cleaning, exploratory data analysis, generates insights and reports using an LLM, and builds a complete interactive dashboard with minimal human intervention. ",
     imagePath: "AiMeet.png",
     githubURL: "https://github.com/NamrathaPed/ai_code_debugger",
     liveURL: "",
@@ -32,10 +32,10 @@ const projectsData = [
   },
   {
     stage: "03",
-    title: "Gen AI Pitch Pal",
-    stack: ["Python", "Gemini API", "RAG", "Langchain", "Faiss", "NLP"],
+    title: "MyFutureSelf.Inc",
+    stack: ["Swift", "OpenAI API", "RAG", "Langchain", "Faiss", "NLP"],
     description:
-      "A generative AI tool that crafts clear, professional pitch decks from simple inputs — helping founders present ideas with confidence.",
+      "A self-motivation app that helps users stay motivated to achieve their goals and stay focussed",
     imagePath: "",
     githubURL: "",
     liveURL: "https://www.kaggle.com/code/adityagupta961/gen-ai-pitchpal-2",

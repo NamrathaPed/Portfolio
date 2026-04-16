@@ -28,14 +28,7 @@ const AvatarHologram = () => (
         <img
           src="/profile.jpg"
           alt="Namratha"
-          style={{
-            width: 340,
-            height: 340,
-            borderRadius: "50%",
-            objectFit: "cover",
-            display: "block",
-            animation: "holoRing 3s ease-in-out infinite",
-          }}
+          className="hero-avatar-img"
         />
         {/* Teal CRT scanlines */}
         <div
@@ -345,21 +338,9 @@ export default function Hero() {
       </div>
 
       {/* Main layout */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          minHeight: "100vh",
-          padding: "0 clamp(1.5rem, 6vw, 6rem)",
-          gap: "2rem",
-        }}
-      >
+      <div className="hero-main-layout">
         {/* ── Left: text ─────────────────────────────────── */}
-        <div style={{ flex: 1, maxWidth: 520, marginTop: 60 }}>
+        <div className="hero-text-block">
           <div style={{ animation: "slideInLeft 0.5s ease-out 0.8s both" }}>
             <h1
               className="stage-header-text"
@@ -440,15 +421,7 @@ export default function Hero() {
         </div>
 
         {/* ── Right: avatar ───────────────────────────────── */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingBottom: 80,
-          }}
-        >
+        <div className="hero-avatar-block">
           <AvatarHologram />
         </div>
       </div>

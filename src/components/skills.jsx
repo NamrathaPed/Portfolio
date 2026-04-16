@@ -1,127 +1,500 @@
-import { Tile } from "./tile";
-import { NavigationButtons } from "./NavigationButtons";
-import "./projects.css";
-import { FaPython, FaJava, FaJs, FaReact, FaNodeJs, FaRProject, FaGitAlt } from "react-icons/fa";
-import { 
-  SiC, SiCplusplus, SiTypescript, SiHtml5, SiCss3, 
-  SiTensorflow, SiPytorch, SiKeras, SiScikitlearn, SiPandas, SiNumpy, 
-  SiGooglecloud, SiMysql, SiMongodb, SiTableau
-} from "react-icons/si";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
+import { RiArrowLeftWideLine } from "react-icons/ri";
+import "./starry.css";
+import "./skills.css";
 
-export const Skills = () => {
-  const skillCategories = [
-    {
-      title: "Programming Languages",
-      skills: [
-        { name: "Python", icon: <FaPython /> },
-        { name: "Java", icon: <FaJava /> },
-        { name: "C", icon: <SiC /> },
-        { name: "C++", icon: <SiCplusplus /> },
-        { name: "R", icon: <FaRProject /> },
-        { name: "JavaScript", icon: <FaJs /> },
-        { name: "TypeScript", icon: <SiTypescript /> },
-        { name: "HTML", icon: <SiHtml5 /> },
-        { name: "CSS", icon: <SiCss3 /> }
-      ]
-    },
-    {
-      title: "Frameworks & Libraries",
-      skills: [
-        { name: "React.js", icon: <FaReact /> },
-        { name: "Node.js", icon: <FaNodeJs /> },
-        { name: "TensorFlow", icon: <SiTensorflow /> },
-        { name: "PyTorch", icon: <SiPytorch /> },
-        { name: "Keras", icon: <SiKeras /> },
-        { name: "scikit-learn", icon: <SiScikitlearn /> },
-        { name: "pandas", icon: <SiPandas /> },
-        { name: "NumPy", icon: <SiNumpy /> },
-        { name: "Matplotlib", icon: "📊" }
-      ]
-    },
-    {
-      title: "Software Development",
-      skills: [
-        { name: "OOP", icon: "🧩" },
-        { name: "REST API", icon: "🔗" },
-        { name: "Unit Testing (Pytest)", icon: "🧪" },
-        { name: "System Design", icon: "📐" },
-        { name: "Agile", icon: "⚡" },
-        { name: "Scrum", icon: "👥" },
-        { name: "CI/CD", icon: "🚀" }
-      ]
-    },
-    {
-      title: "Cloud & Platforms",
-      skills: [
-        { name: "Google Cloud Platform", icon: <SiGooglecloud /> },
-        { name: "Windows", icon: "🖥️" }
-      ]
-    },
-    {
-      title: "Databases & Tools",
-      skills: [
-        { name: "SQL", icon: "🗄️" },
-        { name: "MySQL", icon: <SiMysql /> },
-        { name: "NoSQL", icon: <SiMongodb /> },
-        { name: "Git", icon: <FaGitAlt /> },
-        { name: "Excel", icon: "📊" },
-      ]
-    },
-    {
-      title: "Data Science & Analytics",
-      skills: [
-        { name: "ETL", icon: "⚙️" },
-        { name: "Statistical Analysis", icon: "📈" },
-        { name: "Tableau", icon: <SiTableau /> },
-        { name: "Power BI", icon: "📊" }
-      ]
-    },
-    {
-      title: "AI/ML",
-      skills: [
-        { name: "LLMs", icon: "🤖" },
-        { name: "RAG", icon: "🤖" }
-      ]
-    }
-  ];
+// ── Skill data ────────────────────────────────────────────────────────────────
+const PROGRAMMING = [
+  { icon: "🐍", name: "Python",      xp: 95, tip: "EXPERT · AI Resume Builder" },
+  { icon: "🌐", name: "JavaScript",  xp: 85, tip: "ADVANCED · Portfolio Site" },
+  { icon: "🔷", name: "TypeScript",  xp: 72, tip: "INTERMEDIATE · Portfolio Site" },
+  { icon: "☕", name: "Java",        xp: 68, tip: "INTERMEDIATE · OOP Projects" },
+  { icon: "📊", name: "R",           xp: 65, tip: "INTERMEDIATE · Data Analysis" },
+  { icon: "🔧", name: "C",           xp: 60, tip: "INTERMEDIATE · DSA" },
+  { icon: "⚙️", name: "C++",         xp: 60, tip: "INTERMEDIATE · DSA" },
+  { icon: "🏗️", name: "HTML",        xp: 90, tip: "EXPERT · Portfolio Site" },
+  { icon: "🎨", name: "CSS",         xp: 85, tip: "ADVANCED · Portfolio Site" },
+  { icon: "🗄️", name: "SQL",         xp: 78, tip: "ADVANCED · Data Projects" },
+  { icon: "🐙", name: "Git",         xp: 82, tip: "ADVANCED · All Projects" },
+  { icon: "☁️", name: "GCP",         xp: 58, tip: "INTERMEDIATE · Cloud Projects" },
+];
+
+const FRAMEWORKS = [
+  { icon: "⚛️", name: "React",        xp: 85, tip: "ADVANCED · Portfolio Site" },
+  { icon: "🟩", name: "Node.js",      xp: 75, tip: "ADVANCED · Backend APIs" },
+  { icon: "🧠", name: "TensorFlow",   xp: 75, tip: "ADVANCED · ML Projects" },
+  { icon: "🔥", name: "PyTorch",      xp: 68, tip: "INTERMEDIATE · Deep Learning" },
+  { icon: "🤖", name: "scikit-learn", xp: 82, tip: "ADVANCED · Kaggle Projects" },
+  { icon: "🐼", name: "pandas",       xp: 88, tip: "EXPERT · Data Analysis" },
+  { icon: "🔢", name: "NumPy",        xp: 85, tip: "EXPERT · ML Pipelines" },
+  { icon: "🧬", name: "Keras",        xp: 65, tip: "INTERMEDIATE · Neural Nets" },
+  { icon: "🔗", name: "LangChain",    xp: 72, tip: "INTERMEDIATE · RAG Systems" },
+  { icon: "🍃", name: "MongoDB",      xp: 65, tip: "INTERMEDIATE · NoSQL Apps" },
+  { icon: "🗃️", name: "MySQL",        xp: 75, tip: "ADVANCED · Database Design" },
+  { icon: "📈", name: "Matplotlib",   xp: 80, tip: "ADVANCED · Visualizations" },
+];
+
+const AI_TOOLS = [
+  { icon: "🤖", name: "LLMs",          xp: 82, tip: "ADVANCED · Code Debugger" },
+  { icon: "🔍", name: "RAG",           xp: 78, tip: "ADVANCED · AI Resume Builder" },
+  { icon: "✨", name: "Gemini API",    xp: 72, tip: "INTERMEDIATE · AI Tools" },
+  { icon: "🗂️", name: "FAISS",         xp: 65, tip: "INTERMEDIATE · Vector Search" },
+  { icon: "🧩", name: "OOP",           xp: 85, tip: "ADVANCED · All Projects" },
+  { icon: "🔗", name: "REST APIs",     xp: 80, tip: "ADVANCED · Backend Work" },
+  { icon: "🧪", name: "Pytest",        xp: 65, tip: "INTERMEDIATE · Unit Testing" },
+  { icon: "🚀", name: "CI/CD",         xp: 58, tip: "INTERMEDIATE · DevOps" },
+  { icon: "📊", name: "Tableau",       xp: 70, tip: "INTERMEDIATE · Dashboards" },
+  { icon: "⚡", name: "Agile",         xp: 75, tip: "ADVANCED · Team Projects" },
+  { icon: "📐", name: "Sys Design",    xp: 60, tip: "INTERMEDIATE · Architecture" },
+  { icon: "📉", name: "Stat Analysis", xp: 72, tip: "INTERMEDIATE · Data Science" },
+];
+
+const HUD = [
+  { label: "LVL 3 DEVELOPER",  dot: "#00e5b0", delay: "0s" },
+  { label: "CLASS: AI ENGINEER", dot: "#a855f7", delay: "0.3s" },
+  { label: "XP: 2400",          dot: "#00e5b0", delay: "0.6s" },
+];
+
+const UNLOCKING = [
+  { label: "⟳ UNLOCKING: Docker",  delay: "0s" },
+  { label: "⟳ UNLOCKING: AWS",     delay: "0.4s" },
+  { label: "⟳ UNLOCKING: Next.js", delay: "0.8s" },
+];
+
+// ── Skill card ────────────────────────────────────────────────────────────────
+const SkillCard = ({ title, skills, barColor, mounted, animDelay }) => {
+  const [hovered, setHovered] = useState(null);
 
   return (
-    <section className="flex flex-col items-center justify-center p-10 starry-bg">
-      <NavigationButtons />
-      <h1 className="stage-header-text" style={{ color: "#00e5b0", fontFamily: "'Press Start 2P', monospace", fontSize: "clamp(18px, 4vw, 34px)", letterSpacing: "2px", marginBottom: "16px", textAlign: "center" }}>My Skills</h1>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "40px" }}>
-        <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, #00e5b030)" }} />
-        <span style={{ color: "#00e5b040", fontFamily: "'Press Start 2P', monospace", fontSize: "8px" }}>◆</span>
-        <div style={{ height: "1px", width: "120px", background: "linear-gradient(to right, #00e5b030, #a855f730, #00e5b030)" }} />
-        <span style={{ color: "#00e5b040", fontFamily: "'Press Start 2P', monospace", fontSize: "8px" }}>◆</span>
-        <div style={{ height: "1px", width: "60px", background: "linear-gradient(to left, transparent, #00e5b030)" }} />
+    <div
+      className="skills-card"
+      style={{
+        background: "#0d1526",
+        border: "2px solid #00e5b0",
+        borderRadius: 10,
+        boxShadow: "0 0 22px rgba(0,229,176,0.18), 0 0 55px rgba(0,229,176,0.06)",
+        padding: "28px 32px",
+        width: "100%",
+        animationDelay: animDelay,
+      }}
+    >
+      <h2
+        style={{
+          fontFamily: "'Press Start 2P', monospace",
+          fontSize: 8,
+          color: "#a855f7",
+          marginBottom: 24,
+          letterSpacing: "0.5px",
+        }}
+      >
+        {title}
+      </h2>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "20px 16px",
+        }}
+      >
+        {skills.map((skill, i) => (
+          <div
+            key={i}
+            style={{ position: "relative" }}
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(null)}
+          >
+            {/* Tooltip */}
+            {hovered === i && (
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "calc(100% + 8px)",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background: "#111827",
+                  border: "1px solid #00e5b0",
+                  borderRadius: 4,
+                  padding: "6px 9px",
+                  fontFamily: "'Press Start 2P', monospace",
+                  fontSize: 5,
+                  color: "#00e5b0",
+                  whiteSpace: "nowrap",
+                  zIndex: 20,
+                  animation: "tooltipIn 0.15s ease-out forwards",
+                  pointerEvents: "none",
+                }}
+              >
+                {skill.tip}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: 0,
+                    height: 0,
+                    borderLeft: "5px solid transparent",
+                    borderRight: "5px solid transparent",
+                    borderTop: "5px solid #00e5b0",
+                  }}
+                />
+              </div>
+            )}
+
+            {/* Emoji icon */}
+            <div style={{ fontSize: 16, textAlign: "center", marginBottom: 5 }}>
+              {skill.icon}
+            </div>
+
+            {/* Skill name */}
+            <p
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontSize: 10,
+                color: "#8aa0c0",
+                textAlign: "center",
+                margin: "0 0 7px",
+                lineHeight: 1.3,
+              }}
+            >
+              {skill.name}
+            </p>
+
+            {/* XP bar track */}
+            <div
+              style={{
+                height: 5,
+                background: "#1c2a3a",
+                border: "1px solid #1e3050",
+                borderRadius: 3,
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  height: "100%",
+                  width: mounted ? `${skill.xp}%` : "0%",
+                  background: barColor,
+                  borderRadius: 3,
+                  transition: `width 1.2s cubic-bezier(0.4, 0, 0.2, 1) ${i * 45}ms`,
+                }}
+              />
+            </div>
+
+            {/* XP number */}
+            <div
+              style={{
+                fontFamily: "'Press Start 2P', monospace",
+                fontSize: 5,
+                color: "rgba(0,229,176,0.35)",
+                textAlign: "right",
+                marginTop: 3,
+              }}
+            >
+              {skill.xp} XP
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// ── Main component ────────────────────────────────────────────────────────────
+export const Skills = () => {
+  const navigate = useNavigate();
+  const [mounted, setMounted] = useState(false);
+  const [ripples, setRipples] = useState([]);
+
+  // Canvas stars
+  const canvasRef = useRef(null);
+  const starsRef = useRef([]);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const rafRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    const setup = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      starsRef.current = Array.from({ length: 130 }, () => {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        return {
+          x, y, baseX: x, baseY: y,
+          vx: 0, vy: 0,
+          size: Math.random() < 0.15 ? 2 : 1,
+          opacity: 0.3 + Math.random() * 0.65,
+          twinkle: 0.7 + Math.random() * 2.8,
+          phase: Math.random() * Math.PI * 2,
+        };
+      });
+    };
+
+    setup();
+    window.addEventListener("resize", setup);
+
+    const onMouseMove = (e) => { mouseRef.current = { x: e.clientX, y: e.clientY }; };
+    window.addEventListener("mousemove", onMouseMove);
+
+    const draw = (t) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      starsRef.current.forEach((s) => {
+        const dx = s.x - mouseRef.current.x;
+        const dy = s.y - mouseRef.current.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const R = 120;
+        if (dist < R && dist > 0) {
+          const f = ((R - dist) / R) * 0.85;
+          s.vx += (dx / dist) * f;
+          s.vy += (dy / dist) * f;
+        }
+        s.vx += (s.baseX - s.x) * 0.007;
+        s.vy += (s.baseY - s.y) * 0.007;
+        s.vx *= 0.88;
+        s.vy *= 0.88;
+        s.x += s.vx;
+        s.y += s.vy;
+        const op = s.opacity * (0.5 + 0.5 * Math.sin(t * 0.001 * s.twinkle + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${Math.max(0, Math.min(1, op))})`;
+        ctx.fill();
+      });
+      rafRef.current = requestAnimationFrame(draw);
+    };
+
+    rafRef.current = requestAnimationFrame(draw);
+
+    return () => {
+      window.removeEventListener("resize", setup);
+      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  // Trigger XP bar animations after mount
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 120);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Click ripple
+  const handleClick = useCallback((e) => {
+    const id = Date.now() + Math.random();
+    setRipples((r) => [...r, { id, x: e.clientX, y: e.clientY }]);
+    setTimeout(() => setRipples((r) => r.filter((rr) => rr.id !== id)), 800);
+  }, []);
+
+  return (
+    <section
+      onClick={handleClick}
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        backgroundColor: "#0a0f1e",
+        overflow: "hidden",
+      }}
+    >
+      {/* Canvas stars */}
+      <canvas
+        ref={canvasRef}
+        style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}
+      />
+
+      {/* CRT scanline overlay */}
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 1,
+          pointerEvents: "none",
+          background:
+            "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,229,176,0.025) 3px, rgba(0,229,176,0.025) 4px)",
+        }}
+      />
+
+      {/* Click ripples */}
+      {ripples.map((r) => (
+        <div
+          key={r.id}
+          style={{
+            position: "fixed",
+            left: r.x,
+            top: r.y,
+            transform: "translate(-50%, -50%)",
+            borderRadius: "50%",
+            border: "2px solid #00e5b0",
+            pointerEvents: "none",
+            zIndex: 9999,
+            animation: "rippleRing 0.8s ease-out forwards",
+          }}
+        />
+      ))}
+
+      {/* Nav */}
+      <div
+        style={{
+          position: "fixed",
+          top: 20,
+          left: 24,
+          right: 24,
+          zIndex: 100,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <RiArrowLeftWideLine
+          size={28}
+          style={{ color: "#00e5b0", cursor: "pointer" }}
+          onClick={(e) => { e.stopPropagation(); navigate(-1); }}
+        />
+        <AiFillHome
+          size={24}
+          style={{ color: "#00e5b0", cursor: "pointer" }}
+          onClick={(e) => { e.stopPropagation(); navigate("/"); }}
+        />
       </div>
 
-      <div className="flex flex-col gap-8 w-full max-w-4xl">
-        {skillCategories.map((category, index) => (
-           <Tile
-           key={index}
-           title="" // Hide Tile's built-in title
-           description={
-             <div className="w-full">
-               {/* Fake title aligned left */}
-               <h2 className="text-2xl font-['Press_Start_2P'] text-[#a855f7] mb-10 text-left">{category.title}</h2>
+      {/* Page content */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          maxWidth: 960,
+          margin: "0 auto",
+          padding: "100px 24px 60px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 28,
+        }}
+      >
+        {/* Heading */}
+        <div className="skills-heading" style={{ textAlign: "center" }}>
+          <h1
+            style={{
+              fontFamily: "'Press Start 2P', monospace",
+              fontSize: 15,
+              color: "#00e5b0",
+              letterSpacing: "2px",
+              marginBottom: 16,
+            }}
+          >
+            My Skills
+          </h1>
+          <div
+            style={{
+              height: 1,
+              background:
+                "linear-gradient(to right, transparent, rgba(0,229,176,0.4), transparent)",
+              width: "100%",
+            }}
+          />
+        </div>
 
-               {/* Skills centered */}
-               <div className="flex flex-wrap gap-4 justify-center mt-4 ">
-                 {category.skills.map((skill, idx) => (
-                   <div key={idx} className="flex flex-col items-center w-24">
-                     <div className="text-3xl text-[#00e5b0] mb-1 hover:scale-125 transition-transform">{skill.icon}</div>
-                     <p className="text-[#a855f7] text-center text-sm">{skill.name}</p>
-                   </div>
-                 ))}
-               </div>
-             </div>
-           }
-           className="w-full"
-         />
-       ))}
-     </div>
-   </section>
- );
+        {/* HUD chips */}
+        <div
+          className="skills-hud"
+          style={{
+            display: "flex",
+            gap: 12,
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {HUD.map(({ label, dot, delay }) => (
+            <div
+              key={label}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 7,
+                background: "#0d1526",
+                border: "1px solid rgba(0,229,176,0.27)",
+                borderRadius: 4,
+                padding: "7px 12px",
+                fontFamily: "'Press Start 2P', monospace",
+                fontSize: 5.5,
+                color: "#00e5b0",
+                letterSpacing: "0.5px",
+              }}
+            >
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: dot,
+                  boxShadow: `0 0 6px ${dot}`,
+                  animation: `dotPulse 1.8s ease-in-out ${delay} infinite`,
+                  flexShrink: 0,
+                }}
+              />
+              {label}
+            </div>
+          ))}
+        </div>
+
+        {/* Skill cards */}
+        <SkillCard
+          title="Programming Languages"
+          skills={PROGRAMMING}
+          barColor="#00e5b0"
+          mounted={mounted}
+          animDelay="0.45s"
+        />
+        <SkillCard
+          title="Frameworks & Libraries"
+          skills={FRAMEWORKS}
+          barColor="#a855f7"
+          mounted={mounted}
+          animDelay="0.58s"
+        />
+        <SkillCard
+          title="AI & Tools"
+          skills={AI_TOOLS}
+          barColor="linear-gradient(to right, #00e5b0, #a855f7)"
+          mounted={mounted}
+          animDelay="0.71s"
+        />
+
+        {/* Currently Unlocking */}
+        <div
+          className="skills-unlocking"
+          style={{
+            display: "flex",
+            gap: 12,
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {UNLOCKING.map(({ label, delay }) => (
+            <div
+              key={label}
+              style={{
+                background: "rgba(168,85,247,0.06)",
+                border: "1px dashed rgba(168,85,247,0.45)",
+                borderRadius: 4,
+                padding: "7px 14px",
+                fontFamily: "'Press Start 2P', monospace",
+                fontSize: 6,
+                color: "rgba(168,85,247,0.8)",
+                letterSpacing: "0.5px",
+                animation: `unlockFlicker 2.2s ease-in-out ${delay} infinite`,
+              }}
+            >
+              {label}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };

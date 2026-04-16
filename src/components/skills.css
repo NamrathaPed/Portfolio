@@ -1,0 +1,47 @@
+/* ── Tooltip fade-in ─────────────────────────────────── */
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── HUD dot pulse ───────────────────────────────────── */
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* ── Unlocking flicker ───────────────────────────────── */
+@keyframes unlockFlicker {
+  0%, 100% { opacity: 0.85; }
+  30%       { opacity: 0.3; }
+  60%       { opacity: 0.7; }
+  80%       { opacity: 0.2; }
+}
+
+/* ── Ripple ring ─────────────────────────────────────── */
+@keyframes rippleRing {
+  0%   { width: 0;     height: 0;     opacity: 0.7; }
+  100% { width: 160px; height: 160px; opacity: 0;   }
+}
+
+/* ── Page entrance ───────────────────────────────────── */
+@keyframes skillsFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.skills-heading {
+  animation: skillsFadeUp 0.5s ease-out 0.2s both;
+}
+
+.skills-hud {
+  animation: skillsFadeUp 0.5s ease-out 0.35s both;
+}
+
+.skills-card {
+  animation: skillsFadeUp 0.5s ease-out both;
+}
+
+.skills-unlocking {
+  animation: skillsFadeUp 0.5s ease-out 0.8s both;
+}

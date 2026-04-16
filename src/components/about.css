@@ -1,0 +1,83 @@
+/* ── Ripple click effect ─────────────────────────────── */
+@keyframes aboutRipple {
+  0%   { width: 0;     height: 0;     opacity: 0.9; }
+  100% { width: 220px; height: 220px; opacity: 0;   }
+}
+
+/* ── Avatar chromatic aberration glitch ─────────────── */
+@keyframes aboutGlitch {
+  0%,  83%, 100% { filter: none; transform: translate(0); }
+  84%  { filter: drop-shadow( 2px 0 0 rgba(0,229,176,0.9)) drop-shadow(-2px 0 0 rgba(168,85,247,0.9)); transform: translate(-2px, 0); }
+  85%  { filter: drop-shadow(-2px 0 0 rgba(0,229,176,0.9)) drop-shadow( 2px 0 0 rgba(168,85,247,0.9)); transform: translate( 2px, 0); }
+  86%  { filter: none; transform: translate(0); }
+  87%  { filter: drop-shadow(1px 0 0 rgba(168,85,247,0.7)); transform: translate(-1px, 0) scaleX(0.99); }
+  88%  { filter: none; transform: translate(0); }
+}
+
+/* ── Hologram scanline scroll (downward) ─────────────── */
+@keyframes holoScan {
+  from { background-position-y: 0px; }
+  to   { background-position-y: 4px; }
+}
+
+.about-holo-scan {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 229, 176, 0.09) 3px,
+    rgba(0, 229, 176, 0.09) 4px
+  );
+  animation: holoScan 1.4s linear infinite;
+  pointer-events: none;
+}
+
+/* ── Ticker scroll ───────────────────────────────────── */
+@keyframes aboutTicker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Responsive: stack columns on small screens ──────── */
+.about-card-grid {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 0;
+  padding: 64px 48px;
+}
+
+.about-left-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px;
+  border-right: 1px solid rgba(0, 229, 176, 0.12);
+}
+
+.about-right-col {
+  padding-left: 44px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
+  .about-card-grid {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .about-left-col {
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 229, 176, 0.12);
+    padding-right: 0;
+    padding-bottom: 24px;
+  }
+
+  .about-right-col {
+    padding-left: 0;
+    padding-top: 24px;
+  }
+}
