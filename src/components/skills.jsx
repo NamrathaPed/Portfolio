@@ -4,6 +4,7 @@ import { AiFillHome } from "react-icons/ai";
 import { RiArrowLeftWideLine } from "react-icons/ri";
 import "./starry.css";
 import "./skills.css";
+import "./projects.css";
 
 // ── Skill data ────────────────────────────────────────────────────────────────
 const PROGRAMMING = [
@@ -66,18 +67,24 @@ const UNLOCKING = [
 // ── Skill card ────────────────────────────────────────────────────────────────
 const SkillCard = ({ title, skills, barColor, mounted, animDelay }) => {
   const [hovered, setHovered] = useState(null);
+  const [cardHovered, setCardHovered] = useState(false);
 
   return (
+    <div className="skills-card" style={{ width: "100%", animationDelay: animDelay }}>
     <div
-      className="skills-card"
+      onMouseEnter={() => setCardHovered(true)}
+      onMouseLeave={() => setCardHovered(false)}
       style={{
         background: "#0d1526",
         border: "2px solid #00e5b0",
         borderRadius: 10,
-        boxShadow: "0 0 22px rgba(0,229,176,0.18), 0 0 55px rgba(0,229,176,0.06)",
+        boxShadow: cardHovered
+          ? "0 0 0 1px #00e5b0, 0 0 24px 4px rgba(0,229,176,0.45), 0 0 60px 12px rgba(0,229,176,0.12), 0 24px 48px rgba(0,0,0,0.6)"
+          : "0 0 8px 1px rgba(0,229,176,0.12), 0 0 0 1px rgba(0,229,176,0.3)",
         padding: "28px 32px",
         width: "100%",
-        animationDelay: animDelay,
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        transform: cardHovered ? "translateY(-10px)" : "translateY(0)",
       }}
     >
       <h2
@@ -200,6 +207,7 @@ const SkillCard = ({ title, skills, barColor, mounted, animDelay }) => {
         ))}
       </div>
     </div>
+    </div>
   );
 };
 
@@ -293,6 +301,7 @@ export const Skills = () => {
 
   return (
     <section
+      className="starry-bg"
       onClick={handleClick}
       style={{
         position: "relative",
@@ -379,9 +388,10 @@ export const Skills = () => {
         {/* Heading */}
         <div className="skills-heading" style={{ textAlign: "center" }}>
           <h1
+            className="stage-header-text"
             style={{
               fontFamily: "'Press Start 2P', monospace",
-              fontSize: 15,
+              fontSize: "clamp(18px, 4vw, 34px)",
               color: "#00e5b0",
               letterSpacing: "2px",
               marginBottom: 16,
@@ -389,14 +399,13 @@ export const Skills = () => {
           >
             My Skills
           </h1>
-          <div
-            style={{
-              height: 1,
-              background:
-                "linear-gradient(to right, transparent, rgba(0,229,176,0.4), transparent)",
-              width: "100%",
-            }}
-          />
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginTop: "24px" }}>
+            <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, #00e5b030)" }} />
+            <span style={{ color: "#00e5b040", fontFamily: "'Press Start 2P', monospace", fontSize: "8px" }}>◆</span>
+            <div style={{ height: "1px", width: "120px", background: "linear-gradient(to right, #00e5b030, #a855f730, #00e5b030)" }} />
+            <span style={{ color: "#00e5b040", fontFamily: "'Press Start 2P', monospace", fontSize: "8px" }}>◆</span>
+            <div style={{ height: "1px", width: "60px", background: "linear-gradient(to left, transparent, #00e5b030)" }} />
+          </div>
         </div>
 
         {/* HUD chips */}

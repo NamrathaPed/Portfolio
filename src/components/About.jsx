@@ -159,6 +159,7 @@ export const About = () => {
 
   return (
     <section
+      className="starry-bg"
       style={{
         position: "relative",
         minHeight: "100vh",

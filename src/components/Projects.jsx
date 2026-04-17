@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { useEffect, useRef } from "react";
 import { NavigationButtons } from "./NavigationButtons";
 import { ProjectTile } from "./ProjectTile";
 import "./projects.css";
@@ -58,8 +58,78 @@ const projectsData = [
   
 ];
 
-export const Projects = memo(() => (
+export const Projects = () => {
+  const canvasRef = useRef(null);
+  const starsRef = useRef([]);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const rafRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    const setup = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      starsRef.current = Array.from({ length: 130 }, () => {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        return {
+          x, y, baseX: x, baseY: y,
+          vx: 0, vy: 0,
+          size: Math.random() < 0.15 ? 2 : 1,
+          opacity: 0.3 + Math.random() * 0.65,
+          twinkle: 0.7 + Math.random() * 2.8,
+          phase: Math.random() * Math.PI * 2,
+        };
+      });
+    };
+
+    setup();
+    window.addEventListener("resize", setup);
+
+    const onMouseMove = (e) => { mouseRef.current = { x: e.clientX, y: e.clientY }; };
+    window.addEventListener("mousemove", onMouseMove);
+
+    const draw = (t) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      starsRef.current.forEach((s) => {
+        const dx = s.x - mouseRef.current.x;
+        const dy = s.y - mouseRef.current.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const R = 120;
+        if (dist < R && dist > 0) {
+          const f = ((R - dist) / R) * 0.85;
+          s.vx += (dx / dist) * f;
+          s.vy += (dy / dist) * f;
+        }
+        s.vx += (s.baseX - s.x) * 0.007;
+        s.vy += (s.baseY - s.y) * 0.007;
+        s.vx *= 0.88;
+        s.vy *= 0.88;
+        s.x += s.vx;
+        s.y += s.vy;
+        const op = s.opacity * (0.5 + 0.5 * Math.sin(t * 0.001 * s.twinkle + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${Math.max(0, Math.min(1, op))})`;
+        ctx.fill();
+      });
+      rafRef.current = requestAnimationFrame(draw);
+    };
+
+    rafRef.current = requestAnimationFrame(draw);
+
+    return () => {
+      window.removeEventListener("resize", setup);
+      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  return (
   <div className="starry-bg" style={{ minHeight: "100vh", position: "relative", overflowX: "auto" }}>
+    <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }} />
     <NavigationButtons />
 
     <div style={{ position: "relative", zIndex: 1, paddingTop: "88px", paddingBottom: "72px", paddingLeft: "24px", paddingRight: "24px" }}>
@@ -113,4 +183,5 @@ export const Projects = memo(() => (
       </p>
     </div>
   </div>
-));
+  );
+};
