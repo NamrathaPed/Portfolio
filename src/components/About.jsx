@@ -236,7 +236,8 @@ export const About = () => {
           {/* ── Left column ──────────────────────────────── */}
           <div className="about-left-col">
             {/* Avatar */}
-            <div style={{ position: "relative", display: "inline-block", animation: "aboutGlitch 8s ease-in-out infinite" }}>
+            <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+            <div style={{ position: "relative", width: 160, animation: "aboutGlitch 8s ease-in-out infinite" }}>
               <img
                 src="/profile-about.jpg"
                 alt="Namratha"
@@ -267,6 +268,7 @@ export const About = () => {
                 position: "absolute",
                 bottom: -56,
                 left: "50%",
+                transform: "translateX(-50%)",
                 width: 110,
                 height: 52,
                 background: "linear-gradient(to bottom, rgba(0,229,176,0.32), rgba(0,229,176,0.02))",
@@ -288,6 +290,7 @@ export const About = () => {
                 filter: "blur(5px)",
                 pointerEvents: "none",
               }}/>
+            </div>
             </div>
 
             {/* Stat chips */}

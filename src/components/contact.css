@@ -1,0 +1,86 @@
+/* ── Social pill buttons ──────────────────────────────── */
+.contact-social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 229, 176, 0.267);
+  background: transparent;
+  color: #00e5b0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.contact-social-btn:hover {
+  border-color: #00e5b0;
+  box-shadow: 0 0 10px rgba(0, 229, 176, 0.22);
+}
+
+/* ── Input / textarea shared styles ──────────────────── */
+.contact-input {
+  width: 100%;
+  background: #111827;
+  border: 1.5px solid #1e3050;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #c8d8f0;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.contact-input::placeholder {
+  color: #2a3a55;
+}
+.contact-input:focus {
+  outline: none;
+  border-color: #00e5b0;
+  box-shadow: 0 0 0 3px rgba(0, 229, 176, 0.12);
+}
+textarea.contact-input {
+  height: 100px;
+  resize: none;
+}
+
+/* ── Form fade-out ────────────────────────────────────── */
+@keyframes contactFormFade {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+.contact-form-fadeout {
+  animation: contactFormFade 0.35s ease forwards;
+  pointer-events: none;
+}
+
+/* ── Success state fade + slide in ───────────────────── */
+@keyframes contactSuccessFadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.contact-success {
+  animation: contactSuccessFadeIn 0.55s ease forwards;
+}
+
+/* ── Checkmark SVG draw ───────────────────────────────── */
+@keyframes contactCheckDraw {
+  from { stroke-dashoffset: 50; }
+  to   { stroke-dashoffset: 0; }
+}
+.contact-check-path {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: contactCheckDraw 0.55s ease 0.25s forwards;
+}
+
+/* ── Blinking cursor ──────────────────────────────────── */
+@keyframes contactBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.contact-blink {
+  animation: contactBlink 1s step-end infinite;
+}

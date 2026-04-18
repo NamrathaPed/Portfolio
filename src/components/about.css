@@ -72,8 +72,8 @@
   .about-left-col {
     border-right: none;
     border-bottom: 1px solid rgba(0, 229, 176, 0.12);
-    padding-right: 0;
-    padding-bottom: 24px;
+    padding: 0 16px 24px;
+    align-items: center;
   }
 
   .about-right-col {

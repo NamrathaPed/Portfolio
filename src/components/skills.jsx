@@ -8,48 +8,58 @@ import "./projects.css";
 
 // ── Skill data ────────────────────────────────────────────────────────────────
 const PROGRAMMING = [
-  { icon: "🐍", name: "Python",      xp: 95, tip: "EXPERT · AI Resume Builder" },
-  { icon: "🌐", name: "JavaScript",  xp: 85, tip: "ADVANCED · Portfolio Site" },
-  { icon: "🔷", name: "TypeScript",  xp: 72, tip: "INTERMEDIATE · Portfolio Site" },
-  { icon: "☕", name: "Java",        xp: 68, tip: "INTERMEDIATE · OOP Projects" },
-  { icon: "📊", name: "R",           xp: 65, tip: "INTERMEDIATE · Data Analysis" },
-  { icon: "🔧", name: "C",           xp: 60, tip: "INTERMEDIATE · DSA" },
-  { icon: "⚙️", name: "C++",         xp: 60, tip: "INTERMEDIATE · DSA" },
-  { icon: "🏗️", name: "HTML",        xp: 90, tip: "EXPERT · Portfolio Site" },
-  { icon: "🎨", name: "CSS",         xp: 85, tip: "ADVANCED · Portfolio Site" },
-  { icon: "🗄️", name: "SQL",         xp: 78, tip: "ADVANCED · Data Projects" },
-  { icon: "🐙", name: "Git",         xp: 82, tip: "ADVANCED · All Projects" },
-  { icon: "☁️", name: "GCP",         xp: 58, tip: "INTERMEDIATE · Cloud Projects" },
+  { icon: "🍎", name: "Swift",        xp: 70, tip: "INTERMEDIATE · iOS Development" },
+  { icon: "🌐", name: "JavaScript",   xp: 85, tip: "ADVANCED · Portfolio Site" },
+  { icon: "🔷", name: "TypeScript",   xp: 72, tip: "INTERMEDIATE · Portfolio Site" },
+  { icon: "🐍", name: "Python",       xp: 95, tip: "EXPERT · AI Resume Builder" },
+  { icon: "☕", name: "Java",         xp: 68, tip: "INTERMEDIATE · OOP Projects" },
+  { icon: "🔧", name: "C",            xp: 60, tip: "INTERMEDIATE · DSA" },
+  { icon: "⚙️", name: "C++",          xp: 60, tip: "INTERMEDIATE · DSA" },
+  { icon: "📊", name: "R",            xp: 65, tip: "INTERMEDIATE · Data Analysis" },
 ];
 
 const FRAMEWORKS = [
-  { icon: "⚛️", name: "React",        xp: 85, tip: "ADVANCED · Portfolio Site" },
+  { icon: "📱", name: "SwiftUI",      xp: 68, tip: "INTERMEDIATE · iOS UI" },
+  { icon: "⚛️", name: "React.js",     xp: 85, tip: "ADVANCED · Portfolio Site" },
   { icon: "🟩", name: "Node.js",      xp: 75, tip: "ADVANCED · Backend APIs" },
+  { icon: "⚡", name: "FastAPI",      xp: 72, tip: "INTERMEDIATE · Python APIs" },
   { icon: "🧠", name: "TensorFlow",   xp: 75, tip: "ADVANCED · ML Projects" },
   { icon: "🔥", name: "PyTorch",      xp: 68, tip: "INTERMEDIATE · Deep Learning" },
   { icon: "🤖", name: "scikit-learn", xp: 82, tip: "ADVANCED · Kaggle Projects" },
-  { icon: "🐼", name: "pandas",       xp: 88, tip: "EXPERT · Data Analysis" },
-  { icon: "🔢", name: "NumPy",        xp: 85, tip: "EXPERT · ML Pipelines" },
-  { icon: "🧬", name: "Keras",        xp: 65, tip: "INTERMEDIATE · Neural Nets" },
   { icon: "🔗", name: "LangChain",    xp: 72, tip: "INTERMEDIATE · RAG Systems" },
-  { icon: "🍃", name: "MongoDB",      xp: 65, tip: "INTERMEDIATE · NoSQL Apps" },
-  { icon: "🗃️", name: "MySQL",        xp: 75, tip: "ADVANCED · Database Design" },
-  { icon: "📈", name: "Matplotlib",   xp: 80, tip: "ADVANCED · Visualizations" },
 ];
 
-const AI_TOOLS = [
-  { icon: "🤖", name: "LLMs",          xp: 82, tip: "ADVANCED · Code Debugger" },
-  { icon: "🔍", name: "RAG",           xp: 78, tip: "ADVANCED · AI Resume Builder" },
-  { icon: "✨", name: "Gemini API",    xp: 72, tip: "INTERMEDIATE · AI Tools" },
-  { icon: "🗂️", name: "FAISS",         xp: 65, tip: "INTERMEDIATE · Vector Search" },
-  { icon: "🧩", name: "OOP",           xp: 85, tip: "ADVANCED · All Projects" },
-  { icon: "🔗", name: "REST APIs",     xp: 80, tip: "ADVANCED · Backend Work" },
-  { icon: "🧪", name: "Pytest",        xp: 65, tip: "INTERMEDIATE · Unit Testing" },
-  { icon: "🚀", name: "CI/CD",         xp: 58, tip: "INTERMEDIATE · DevOps" },
-  { icon: "📊", name: "Tableau",       xp: 70, tip: "INTERMEDIATE · Dashboards" },
-  { icon: "⚡", name: "Agile",         xp: 75, tip: "ADVANCED · Team Projects" },
-  { icon: "📐", name: "Sys Design",    xp: 60, tip: "INTERMEDIATE · Architecture" },
-  { icon: "📉", name: "Stat Analysis", xp: 72, tip: "INTERMEDIATE · Data Science" },
+const AI_DATA = [
+  { icon: "✨", name: "OpenAI API",   xp: 78, tip: "ADVANCED · AI Tools" },
+  { icon: "💬", name: "LLMs",         xp: 82, tip: "ADVANCED · Code Debugger" },
+  { icon: "🧩", name: "Agentic AI",   xp: 70, tip: "INTERMEDIATE · AI Agents" },
+  { icon: "🔍", name: "RAG",          xp: 78, tip: "ADVANCED · AI Resume Builder" },
+  { icon: "🔄", name: "ETL",          xp: 68, tip: "INTERMEDIATE · Data Pipelines" },
+  { icon: "📊", name: "Power BI",     xp: 70, tip: "INTERMEDIATE · Dashboards" },
+  { icon: "📈", name: "Tableau",      xp: 70, tip: "INTERMEDIATE · Dashboards" },
+];
+
+const CLOUD_DB = [
+  { icon: "🔥", name: "Firebase",     xp: 75, tip: "ADVANCED · App Backend" },
+  { icon: "☁️", name: "GCP",          xp: 58, tip: "INTERMEDIATE · Cloud Projects" },
+  { icon: "🌩️", name: "AWS",          xp: 55, tip: "INTERMEDIATE · Cloud Services" },
+  { icon: "🐳", name: "Docker",       xp: 62, tip: "INTERMEDIATE · Containerization" },
+  { icon: "🗄️", name: "SQL",          xp: 78, tip: "ADVANCED · Data Projects" },
+  { icon: "🗃️", name: "MySQL",        xp: 75, tip: "ADVANCED · Database Design" },
+  { icon: "🐘", name: "PostgreSQL",   xp: 72, tip: "INTERMEDIATE · Databases" },
+  { icon: "⚡", name: "Supabase",     xp: 65, tip: "INTERMEDIATE · Backend" },
+];
+
+const TOOLS = [
+  { icon: "🐙", name: "Git",          xp: 82, tip: "ADVANCED · All Projects" },
+  { icon: "🧪", name: "Unit Testing", xp: 68, tip: "INTERMEDIATE · QA" },
+  { icon: "🚀", name: "CI/CD",        xp: 58, tip: "INTERMEDIATE · DevOps" },
+  { icon: "🧬", name: "Pytest",       xp: 65, tip: "INTERMEDIATE · Python Testing" },
+  { icon: "🧩", name: "OOP",          xp: 85, tip: "ADVANCED · All Projects" },
+  { icon: "📐", name: "Sys Design",   xp: 60, tip: "INTERMEDIATE · Architecture" },
+  { icon: "⚡", name: "Agile",        xp: 75, tip: "ADVANCED · Team Projects" },
+  { icon: "📋", name: "Scrum",        xp: 72, tip: "INTERMEDIATE · Methodology" },
+  { icon: "📊", name: "Excel",        xp: 78, tip: "ADVANCED · Data Analysis" },
 ];
 
 const HUD = [
@@ -59,9 +69,9 @@ const HUD = [
 ];
 
 const UNLOCKING = [
-  { label: "⟳ UNLOCKING: Docker",  delay: "0s" },
-  { label: "⟳ UNLOCKING: AWS",     delay: "0.4s" },
-  { label: "⟳ UNLOCKING: Next.js", delay: "0.8s" },
+  { label: "⟳ UNLOCKING: Next.js",    delay: "0s" },
+  { label: "⟳ UNLOCKING: Kubernetes", delay: "0.4s" },
+  { label: "⟳ UNLOCKING: GraphQL",    delay: "0.8s" },
 ];
 
 // ── Skill card ────────────────────────────────────────────────────────────────
@@ -464,14 +474,28 @@ export const Skills = () => {
           skills={FRAMEWORKS}
           barColor="#a855f7"
           mounted={mounted}
-          animDelay="0.58s"
+          animDelay="0.55s"
         />
         <SkillCard
-          title="AI & Tools"
-          skills={AI_TOOLS}
+          title="AI & Data Science"
+          skills={AI_DATA}
           barColor="linear-gradient(to right, #00e5b0, #a855f7)"
           mounted={mounted}
-          animDelay="0.71s"
+          animDelay="0.65s"
+        />
+        <SkillCard
+          title="Cloud & Databases"
+          skills={CLOUD_DB}
+          barColor="#00e5b0"
+          mounted={mounted}
+          animDelay="0.75s"
+        />
+        <SkillCard
+          title="Tools & Practices"
+          skills={TOOLS}
+          barColor="#a855f7"
+          mounted={mounted}
+          animDelay="0.85s"
         />
 
         {/* Currently Unlocking */}
