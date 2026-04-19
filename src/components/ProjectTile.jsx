@@ -132,7 +132,7 @@ export const ProjectTile = ({ stage, title, stack, description, imagePath, githu
             letterSpacing: "1px",
             borderRadius: "2px",
           }}>
-            !! BOSS !!
+            !! INTERN !!
           </span>
         )}
       </div>
