@@ -27,7 +27,7 @@ const StarRating = ({ count }) => (
   </div>
 );
 
-export const ProjectTile = ({ stage, title, stack, description, imagePath, githubURL, liveURL, demoURL, stars, isBoss }) => {
+export const ProjectTile = ({ stage, title, stack, description, imagePath, githubURL, liveURL, demoURL, stars, isBoss, isProject }) => {
   const [hovered, setHovered] = useState(false);
 
   const accent     = isBoss ? "#a855f7" : "#00e5b0";
@@ -133,6 +133,20 @@ export const ProjectTile = ({ stage, title, stack, description, imagePath, githu
             borderRadius: "2px",
           }}>
             !! INTERN !!
+          </span>
+        )}
+        {isProject && (
+          <span style={{
+            backgroundColor: "rgba(0,229,176,0.12)",
+            color: "#00e5b0",
+            border: "1px solid rgba(0,229,176,0.6)",
+            padding: "3px 9px",
+            fontSize: "8px",
+            fontFamily: "'Press Start 2P', monospace",
+            letterSpacing: "1px",
+            borderRadius: "2px",
+          }}>
+            ★ PROJECT
           </span>
         )}
       </div>

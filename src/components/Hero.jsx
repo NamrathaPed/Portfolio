@@ -398,7 +398,7 @@ export default function Hero() {
             }}
           >
             {[
-              { label: "Projects", fn: go("/projects") },
+              { label: "Experience", fn: go("/projects") },
               { label: "Skills",   fn: go("/skills") },
               { label: "Resume",   fn: open("/NamrathaResume.pdf") },
             ].map(({ label, fn }) => (
