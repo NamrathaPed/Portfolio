@@ -157,7 +157,7 @@ export const Projects = () => {
       </div>
 
       {/* Cards */}
-      <div style={{
+      <div className="project-tiles-container" style={{
         display: "flex",
         flexWrap: "nowrap",
         justifyContent: "flex-start",

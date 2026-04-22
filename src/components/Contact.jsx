@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 import { AiFillHome } from "react-icons/ai";
 import { RiArrowLeftWideLine } from "react-icons/ri";
 import "./starry.css";
@@ -99,10 +100,19 @@ export const Contact = () => {
     e.preventDefault();
     if (status !== "idle") return;
     setStatus("sending");
-    setTimeout(() => {
+
+    emailjs.send(
+      "service_xpdmmsb",
+      "template_uade7ua",
+      { from_name: form.name, from_email: form.email, name: form.name, email: form.email, message: form.message },
+      "C7Awyfpt1kYXh9a2R"
+    ).then(() => {
       setStatus("fading");
       setTimeout(() => setStatus("success"), 350);
-    }, 900);
+    }).catch(() => {
+      setStatus("idle");
+      alert("Failed to send message. Please try again.");
+    });
   };
 
   const labelStyle = {
