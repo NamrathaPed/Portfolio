@@ -400,7 +400,7 @@ export default function Hero() {
             {[
               { label: "Experience", fn: go("/projects") },
               { label: "Skills",   fn: go("/skills") },
-              { label: "Resume",   fn: open("/NamrathaResume.pdf") },
+              { label: "Resume",   fn: open("/Namratha Resume.pdf") },
             ].map(({ label, fn }) => (
               <span
                 key={label}
