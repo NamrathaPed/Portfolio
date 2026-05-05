@@ -27,7 +27,7 @@ const StarRating = ({ count }) => (
   </div>
 );
 
-export const ProjectTile = ({ stage, title, stack, description, imagePath, githubURL, liveURL, demoURL, stars, isBoss, isProject }) => {
+export const ProjectTile = ({ stage, title, stack, description, imagePath, githubURL, kaggleURL, demoURL, stars, isBoss, isProject }) => {
   const [hovered, setHovered] = useState(false);
 
   const accent     = isBoss ? "#a855f7" : "#00e5b0";
@@ -257,9 +257,9 @@ export const ProjectTile = ({ stage, title, stack, description, imagePath, githu
             REPO
           </a>
         )}
-        {liveURL && liveURL.includes("kaggle") && (
+        {kaggleURL && (
           <a
-            href={liveURL}
+            href={kaggleURL}
             target="_blank"
             rel="noreferrer noopener"
             style={btnBase}
