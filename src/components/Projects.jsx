@@ -137,15 +137,14 @@ export const Projects = () => {
     <div style={{ position: "relative", zIndex: 1, paddingTop: "88px", paddingBottom: "72px", paddingLeft: "24px", paddingRight: "24px" }}>
       {/* Page header */}
       <div style={{ textAlign: "center", marginBottom: "24px" }}>
-        <h1 className="stage-header-text" style={{
-          color: "#00e5b0",
-          fontFamily: "'Press Start 2P', monospace",
-          fontSize: "clamp(18px, 4vw, 34px)",
-          letterSpacing: "2px",
-          marginBottom: "16px",
-        }}>
-          WORK EXPERIENCE
-        </h1>
+        <div style={{ filter: "drop-shadow(0 0 8px rgba(0,229,176,0.7))", marginBottom: "16px", display: "inline-block" }}>
+          <pre className="figlet-heading" style={{ fontFamily: "monospace", fontSize: "clamp(3px, 0.6vw, 5.5px)", lineHeight: 1.18, color: "#00e5b0", margin: 0, padding: 0, background: "none", border: "none", whiteSpace: "pre", letterSpacing: 0 }}>{`██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗    ███████╗██╗  ██╗██████╗ ███████╗██████╗ ██╗███████╗███╗   ██╗ ██████╗███████╗
+██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝    ██╔════╝╚██╗██╔╝██╔══██╗██╔════╝██╔══██╗██║██╔════╝████╗  ██║██╔════╝██╔════╝
+██║ █╗ ██║██║   ██║██████╔╝█████╔╝     █████╗   ╚███╔╝ ██████╔╝█████╗  ██████╔╝██║█████╗  ██╔██╗ ██║██║     █████╗
+██║███╗██║██║   ██║██╔══██╗██╔═██╗     ██╔══╝   ██╔██╗ ██╔═══╝ ██╔══╝  ██╔══██╗██║██╔══╝  ██║╚██╗██║██║     ██╔══╝
+╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗    ███████╗██╔╝ ██╗██║     ███████╗██║  ██║██║███████╗██║ ╚████║╚██████╗███████╗
+ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝    ╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝`}</pre>
+        </div>
         {/* Decorative divider */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginTop: "24px" }}>
           <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, #00e5b030)" }} />

@@ -328,19 +328,16 @@ export const Contact = () => {
               <div className={status === "fading" ? "contact-form-fadeout" : ""}>
 
                 {/* Heading */}
-                <h1
-                  className="stage-header-text"
-                  style={{
-                    fontFamily: "'Press Start 2P', monospace",
-                    fontSize: "clamp(15px, 2.5vw, 22px)",
-                    color: "#00e5b0",
-                    textAlign: "center",
-                    marginBottom: "20px",
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  Contact Me
-                </h1>
+                <div style={{ textAlign: "center", marginBottom: "20px" }}>
+                  <div style={{ filter: "drop-shadow(0 0 8px rgba(0,229,176,0.7))", display: "inline-block" }}>
+                    <pre className="figlet-heading" style={{ fontFamily: "monospace", fontSize: "clamp(3.5px, 0.7vw, 6px)", lineHeight: 1.18, color: "#00e5b0", margin: 0, padding: 0, background: "none", border: "none", whiteSpace: "pre", letterSpacing: 0 }}>{` ██████╗ ██████╗ ███╗   ██╗████████╗ █████╗  ██████╗████████╗    ███╗   ███╗███████╗
+██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔══██╗██╔════╝╚══██╔══╝    ████╗ ████║██╔════╝
+██║     ██║   ██║██╔██╗ ██║   ██║   ███████║██║        ██║       ██╔████╔██║█████╗
+██║     ██║   ██║██║╚██╗██║   ██║   ██╔══██║██║        ██║       ██║╚██╔╝██║██╔══╝
+╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║╚██████╗   ██║       ██║ ╚═╝ ██║███████╗
+ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝   ╚═╝       ╚═╝     ╚═╝╚══════╝`}</pre>
+                  </div>
+                </div>
 
                 {/* Gradient divider */}
                 <div

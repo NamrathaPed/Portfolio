@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import "tailwindcss";
 
+/* ── Figlet / ANSI Shadow headings ─────────────────── */
+.figlet-heading {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .figlet-heading {
+    font-size: 3.8px !important;
+  }
+}
+
 /* ── Global custom cursor ───────────────────────────── */
 * {
   cursor: none !important;

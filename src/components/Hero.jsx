@@ -342,18 +342,39 @@ export default function Hero() {
         {/* ── Left: text ─────────────────────────────────── */}
         <div className="hero-text-block">
           <div style={{ animation: "slideInLeft 0.5s ease-out 0.8s both" }}>
-            <h1
-              className="stage-header-text"
+            <div
               style={{
                 fontFamily: "'Press Start 2P', monospace",
-                fontSize: "clamp(20px, 4.5vw, 40px)",
-                color: "#00e5b0",
-                marginBottom: "1.2rem",
-                letterSpacing: "2px",
+                fontSize: "clamp(9px, 1.1vw, 12px)",
+                color: "#00e5b088",
+                marginBottom: "0.3rem",
+                letterSpacing: "3px",
               }}
             >
-              I'm Namratha
-            </h1>
+              I&apos;m
+            </div>
+            <div style={{ filter: "drop-shadow(0 0 8px rgba(0,229,176,0.7))", marginBottom: "1.2rem" }}>
+              <pre
+                className="figlet-heading"
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "clamp(4.5px, 0.85vw, 7.5px)",
+                  lineHeight: 1.18,
+                  color: "#00e5b0",
+                  margin: 0,
+                  padding: 0,
+                  background: "none",
+                  border: "none",
+                  whiteSpace: "pre",
+                  letterSpacing: 0,
+                }}
+              >{`███╗   ██╗ █████╗ ███╗   ███╗██████╗  █████╗ ████████╗██╗  ██╗ █████╗
+████╗  ██║██╔══██╗████╗ ████║██╔══██╗██╔══██╗╚══██╔══╝██║  ██║██╔══██╗
+██╔██╗ ██║███████║██╔████╔██║██████╔╝███████║   ██║   ███████║███████║
+██║╚██╗██║██╔══██║██║╚██╔╝██║██╔══██╗██╔══██║   ██║   ██╔══██║██╔══██║
+██║ ╚████║██║  ██║██║ ╚═╝ ██║██║  ██║██║  ██║   ██║   ██║  ██║██║  ██║
+╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝`}</pre>
+            </div>
           </div>
 
           {/* Subtitle typewriter */}

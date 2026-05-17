@@ -397,18 +397,14 @@ export const Skills = () => {
       >
         {/* Heading */}
         <div className="skills-heading" style={{ textAlign: "center" }}>
-          <h1
-            className="stage-header-text"
-            style={{
-              fontFamily: "'Press Start 2P', monospace",
-              fontSize: "clamp(18px, 4vw, 34px)",
-              color: "#00e5b0",
-              letterSpacing: "2px",
-              marginBottom: 16,
-            }}
-          >
-            My Skills
-          </h1>
+          <div style={{ filter: "drop-shadow(0 0 8px rgba(0,229,176,0.7))", marginBottom: 16, display: "inline-block" }}>
+            <pre className="figlet-heading" style={{ fontFamily: "monospace", fontSize: "clamp(4.5px, 0.85vw, 7.5px)", lineHeight: 1.18, color: "#00e5b0", margin: 0, padding: 0, background: "none", border: "none", whiteSpace: "pre", letterSpacing: 0 }}>{`███╗   ███╗██╗   ██╗    ███████╗██╗  ██╗██╗██╗     ██╗     ███████╗
+████╗ ████║╚██╗ ██╔╝    ██╔════╝██║ ██╔╝██║██║     ██║     ██╔════╝
+██╔████╔██║ ╚████╔╝     ███████╗█████╔╝ ██║██║     ██║     ███████╗
+██║╚██╔╝██║  ╚██╔╝      ╚════██║██╔═██╗ ██║██║     ██║     ╚════██║
+██║ ╚═╝ ██║   ██║       ███████║██║  ██╗██║███████╗███████╗███████║
+╚═╝     ╚═╝   ╚═╝       ╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝`}</pre>
+          </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginTop: "24px" }}>
             <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, #00e5b030)" }} />
             <span style={{ color: "#00e5b040", fontFamily: "'Press Start 2P', monospace", fontSize: "8px" }}>◆</span>

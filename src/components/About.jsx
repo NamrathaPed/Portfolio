@@ -344,17 +344,14 @@ export const About = () => {
             </div>
 
             {/* About Me heading */}
-            <h1
-              style={{
-                fontFamily: "'Press Start 2P', monospace",
-                fontSize: "21px",
-                color: "#00e5b0",
-                marginBottom: "18px",
-                letterSpacing: "1px",
-              }}
-            >
-              About Me
-            </h1>
+            <div style={{ filter: "drop-shadow(0 0 8px rgba(0,229,176,0.7))", marginBottom: "18px", display: "inline-block" }}>
+              <pre className="figlet-heading" style={{ fontFamily: "monospace", fontSize: "clamp(4.5px, 0.85vw, 7.5px)", lineHeight: 1.18, color: "#00e5b0", margin: 0, padding: 0, background: "none", border: "none", whiteSpace: "pre", letterSpacing: 0 }}>{` █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗    ███╗   ███╗███████╗
+██╔══██╗██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝    ████╗ ████║██╔════╝
+███████║██████╔╝██║   ██║██║   ██║   ██║       ██╔████╔██║█████╗
+██╔══██║██╔══██╗██║   ██║██║   ██║   ██║       ██║╚██╔╝██║██╔══╝
+██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║       ██║ ╚═╝ ██║███████╗
+╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚══════╝`}</pre>
+            </div>
 
             {/* Gradient divider */}
             <div
